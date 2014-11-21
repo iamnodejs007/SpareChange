@@ -11,6 +11,32 @@ angular.module('starter.controllers', [])
   $scope.stacks.push({numCoins: 4});
   $scope.stacks.push({numCoins: 5});
 
+  $scope.state = {
+    stackNo: null,
+    numCoins: 0
+  };
+
+  $scope.takeCoin = function(stack) {
+    var no = $scope.state.stackNo;
+    if(no !== null && stack !== no) {
+      $scope.reset(stack);
+      return;
+    } else if(no === null) {
+      $scope.state.stackNo = stack;
+    }
+
+    if($scope.stacks[stack].numCoins - $scope.state.numCoins <= 0) {
+      throw 'dumbass';
+    }
+
+    $scope.state.numCoins++;
+
+  };
+
+  $scope.reset = function(stack) {
+    throw 'are you sure?';
+  };
+
   $scope.getCss = function(stack, coin) {
     var names = [
       "zero",
@@ -20,7 +46,13 @@ angular.module('starter.controllers', [])
       "four",
       "five"
     ];
-    return names[stack]+'-'+names[coin];
+
+    var gray = '';
+    if(stack === $scope.state.stackNo &&
+        coin >= $scope.stacks[stack].numCoins - $scope.state.numCoins) {
+      gray = ' grayscale';
+    }
+    return names[stack]+'-'+names[coin]+gray;
   };
 
 });
