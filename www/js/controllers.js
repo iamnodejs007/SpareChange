@@ -17,6 +17,9 @@ angular.module('starter.controllers', [])
   };
 
   $scope.next = function() {
+    if($scope.state.stackNo === null) {
+      return;
+    }
     console.log($scope.stacks[$scope.state.stackNo].numCoins);
     $scope.stacks[$scope.state.stackNo].numCoins -= $scope.state.numCoins;
     console.log($scope.stacks[$scope.state.stackNo].numCoins);
@@ -40,14 +43,16 @@ angular.module('starter.controllers', [])
     };
   };
 
-  $scope.doReset = function() {
+  $scope.doReset = function(maybe) {
 
     $scope.modal.hide();
 
-    $scope.state = {
-      stackNo: null,
-      numCoins: 0
-    };
+    if(maybe) {
+      $scope.state = {
+        stackNo: null,
+        numCoins: 0
+      };
+    }
 
   };
 
