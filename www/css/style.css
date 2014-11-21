@@ -1,0 +1,63 @@
+/* Empty. Add your own CSS if you like */
+
+img {
+  width: 200px;
+  height: 200px;
+}
+
+.zero-zero {
+  position: absolute;
+}
+
+.zero-one {
+  position: absolute;
+  top: -11px;
+}
+
+.zero-two {
+  position: absolute;
+  top: -32px;
+}
+
+.one-zero {
+  position: absolute;
+}
+
+.one-one {
+  position: absolute;
+  top: -11px;
+}
+
+.one-two {
+  position: absolute;
+  top: -32px;
+}
+
+.one-three {
+  position: absolute;
+  top: -53px;
+}
+
+.two-zero {
+  position: absolute;
+}
+
+.two-one {
+  position: absolute;
+  top: -11px;
+}
+
+.two-two {
+  position: absolute;
+  top: -32px;
+}
+
+.two-three {
+  position: absolute;
+  top: -53px;
+}
+
+.two-four {
+  position: absolute;
+  top: -74px;
+}
