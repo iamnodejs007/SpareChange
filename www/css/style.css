@@ -1,5 +1,9 @@
 /* Empty. Add your own CSS if you like */
 
+img.invis {
+  display:none;
+}
+
 img.grayscale {
   filter: grayscale(1);
   -webkit-filter: grayscale(1);

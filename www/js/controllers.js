@@ -16,6 +16,17 @@ angular.module('starter.controllers', [])
     numCoins: 0
   };
 
+  $scope.next = function() {
+    console.log($scope.stacks[$scope.state.stackNo].numCoins);
+    $scope.stacks[$scope.state.stackNo].numCoins -= $scope.state.numCoins;
+    console.log($scope.stacks[$scope.state.stackNo].numCoins);
+
+    $scope.state = {
+      stackNo: null,
+      numCoins: 0
+    };
+  };
+
   $scope.takeCoin = function(stack) {
     var no = $scope.state.stackNo;
     if(no !== null && stack !== no) {
@@ -52,7 +63,8 @@ angular.module('starter.controllers', [])
         coin >= $scope.stacks[stack].numCoins - $scope.state.numCoins) {
       gray = ' grayscale';
     }
-    return names[stack]+'-'+names[coin]+gray;
+    if($scope.stacks[stack].numCoins <= coin) return 'invis';
+    else return names[stack]+'-'+names[coin]+gray;
   };
 
 });
