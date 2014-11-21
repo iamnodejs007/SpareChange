@@ -1,10 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope) {
 
 })
 
-.controller('GameCtrl', function($scope) {
+.controller('GameCtrl', function($scope, $ionicModal) {
 
   $scope.stacks = [];
   $scope.stacks.push({numCoins: 3});
@@ -21,13 +21,43 @@ angular.module('starter.controllers', [])
     $scope.stacks[$scope.state.stackNo].numCoins -= $scope.state.numCoins;
     console.log($scope.stacks[$scope.state.stackNo].numCoins);
 
+    var left = $scope.stacks.reduce(function(prev, curr) {
+      return { numCoins: prev.numCoins+curr.numCoins };
+    });
+
+    if(left.numCoins <= 1) {
+      alert('Game Over!');
+
+      $scope.stacks = [];
+      $scope.stacks.push({numCoins: 3});
+      $scope.stacks.push({numCoins: 4});
+      $scope.stacks.push({numCoins: 5});
+    }
+
     $scope.state = {
       stackNo: null,
       numCoins: 0
     };
   };
 
-  $scope.takeCoin = function(stack) {
+  $scope.doReset = function() {
+
+    $scope.modal.hide();
+
+    $scope.state = {
+      stackNo: null,
+      numCoins: 0
+    };
+
+  };
+
+  $ionicModal.fromTemplateUrl('templates/areyousure.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+ $scope.takeCoin = function(stack) {
     var no = $scope.state.stackNo;
     if(no !== null && stack !== no) {
       $scope.reset(stack);
@@ -37,7 +67,8 @@ angular.module('starter.controllers', [])
     }
 
     if($scope.stacks[stack].numCoins - $scope.state.numCoins <= 0) {
-      throw 'dumbass';
+      alert('You can\'t do that.');
+      return;
     }
 
     $scope.state.numCoins++;
@@ -45,7 +76,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.reset = function(stack) {
-    throw 'are you sure?';
+    $scope.modal.show();
   };
 
   $scope.getCss = function(stack, coin) {
