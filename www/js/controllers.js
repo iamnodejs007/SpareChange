@@ -4,44 +4,31 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('GameCtrl', function($scope, $ionicModal) {
+.controller('GameCtrl', function($scope, $ionicModal, GameState) {
 
-  $scope.stacks = [];
-  $scope.stacks.push({coins: [0,1,2]});
-  $scope.stacks.push({coins: [0,1,2,3]});
-  $scope.stacks.push({coins: [0,1,2,3,4]});
+  $scope.$watch(function() { return GameState.stacks }, function() {
+    $scope.stacks = GameState.stacks;
+  });
 
-  $scope.state = {
-    stackNo: null,
-    numCoins: 0
-  };
+  GameState.setup();
+
+  $scope.range = function(i) {
+    return new Array(i);
+  }
 
   $scope.next = function() {
-    if($scope.state.stackNo === null) {
-      return;
-    }
-    //console.log($scope.stacks[$scope.state.stackNo].numCoins);
-    for(var i = 0; i < $scope.state.numCoins; ++i)
-      $scope.stacks[$scope.state.stackNo].coins.pop();
-    //console.log($scope.stacks[$scope.state.stackNo].numCoins);
+    GameState.endTurn();
 
-    var left = $scope.stacks.reduce(function(prev, curr) {
-      return { coins: { length: prev.coins.length + curr.coins.length } };
-    });
-
-    if(left.coins.length <= 1) {
+    var left = 0;
+    for(var i = 0; i < GameState.stacks.length; ++i)
+      left+= GameState.stacks[i].coins;
+    
+    if(left <= 1) {
       alert('Game Over!');
 
-      $scope.stacks = [];
-      $scope.stacks.push({coins: [0,1,2]});
-      $scope.stacks.push({coins: [0,1,2,3]});
-      $scope.stacks.push({coins: [0,1,2,3,4]});
+      GameState.setup();
     }
 
-    $scope.state = {
-      stackNo: null,
-      numCoins: 0
-    };
   };
 
   $scope.doReset = function(maybe) {
@@ -49,10 +36,7 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
 
     if(maybe) {
-      $scope.state = {
-        stackNo: null,
-        numCoins: 0
-      };
+      GameState.resetTurn();
     }
 
   };
@@ -63,24 +47,11 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
- $scope.takeCoin = function(stack) {
-    var no = $scope.state.stackNo;
-    if(no !== null && stack !== no) {
-      $scope.reset(stack);
-      return;
-    } else if(no === null) {
-      $scope.state.stackNo = stack;
-    }
-
-    if($scope.stacks[stack].coins.length - $scope.state.numCoins <= 0) {
-      alert('You can\'t do that.');
-      return;
-    }
-
-    $scope.state.numCoins++;
-
+  $scope.takeCoin = function(stackNo) {
+    if(!GameState.takeCoin(stackNo))
+      $scope.reset(stackNo);
   };
-
+ 
   $scope.reset = function(stack) {
     $scope.modal.show();
   };
@@ -96,11 +67,11 @@ angular.module('starter.controllers', [])
     ];
 
     var gray = '';
-    if(stack === $scope.state.stackNo &&
-        coin >= $scope.stacks[stack].coins.length - $scope.state.numCoins) {
+    if(stack === GameState.currentStack &&
+        coin >= $scope.stacks[stack].coins - $scope.stacks[stack].marked) {
       gray = ' grayscale';
     }
-    if($scope.stacks[stack].coins.length <= coin) return 'invis';
+    if($scope.stacks[stack].coins <= coin) return 'invis';
     else return names[stack]+'-'+names[coin]+gray;
   };
 
