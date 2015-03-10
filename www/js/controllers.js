@@ -7,9 +7,9 @@ angular.module('starter.controllers', [])
 .controller('GameCtrl', function($scope, $ionicModal) {
 
   $scope.stacks = [];
-  $scope.stacks.push({numCoins: 3});
-  $scope.stacks.push({numCoins: 4});
-  $scope.stacks.push({numCoins: 5});
+  $scope.stacks.push({coins: [0,1,2]});
+  $scope.stacks.push({coins: [0,1,2,3]});
+  $scope.stacks.push({coins: [0,1,2,3,4]});
 
   $scope.state = {
     stackNo: null,
@@ -20,21 +20,22 @@ angular.module('starter.controllers', [])
     if($scope.state.stackNo === null) {
       return;
     }
-    console.log($scope.stacks[$scope.state.stackNo].numCoins);
-    $scope.stacks[$scope.state.stackNo].numCoins -= $scope.state.numCoins;
-    console.log($scope.stacks[$scope.state.stackNo].numCoins);
+    //console.log($scope.stacks[$scope.state.stackNo].numCoins);
+    for(var i = 0; i < $scope.state.numCoins; ++i)
+      $scope.stacks[$scope.state.stackNo].coins.pop();
+    //console.log($scope.stacks[$scope.state.stackNo].numCoins);
 
     var left = $scope.stacks.reduce(function(prev, curr) {
-      return { numCoins: prev.numCoins+curr.numCoins };
+      return { coins: { length: prev.coins.length + curr.coins.length } };
     });
 
-    if(left.numCoins <= 1) {
+    if(left.coins.length <= 1) {
       alert('Game Over!');
 
       $scope.stacks = [];
-      $scope.stacks.push({numCoins: 3});
-      $scope.stacks.push({numCoins: 4});
-      $scope.stacks.push({numCoins: 5});
+      $scope.stacks.push({coins: [0,1,2]});
+      $scope.stacks.push({coins: [0,1,2,3]});
+      $scope.stacks.push({coins: [0,1,2,3,4]});
     }
 
     $scope.state = {
@@ -71,7 +72,7 @@ angular.module('starter.controllers', [])
       $scope.state.stackNo = stack;
     }
 
-    if($scope.stacks[stack].numCoins - $scope.state.numCoins <= 0) {
+    if($scope.stacks[stack].coins.length - $scope.state.numCoins <= 0) {
       alert('You can\'t do that.');
       return;
     }
@@ -96,10 +97,10 @@ angular.module('starter.controllers', [])
 
     var gray = '';
     if(stack === $scope.state.stackNo &&
-        coin >= $scope.stacks[stack].numCoins - $scope.state.numCoins) {
+        coin >= $scope.stacks[stack].coins.length - $scope.state.numCoins) {
       gray = ' grayscale';
     }
-    if($scope.stacks[stack].numCoins <= coin) return 'invis';
+    if($scope.stacks[stack].coins.length <= coin) return 'invis';
     else return names[stack]+'-'+names[coin]+gray;
   };
 
