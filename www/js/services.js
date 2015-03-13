@@ -52,14 +52,6 @@ angular.module('starter.services', ['btford.socket-io'])
       GameState.gameNo = gameNo;
     }
 
-    GameSync.on('gameNo', function(gameNo) {
-      GameState.gameNo = gameNo;
-    });
-
-    GameSync.on('playerNo', function(playerNo) {
-      GameState.playerNo = playerNo;
-    });
-
     GameSync.on('games', function(games) {
       console.log(JSON.stringify(games, null, 2));
       GameState.games = games;

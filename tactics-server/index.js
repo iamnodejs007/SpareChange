@@ -12,7 +12,7 @@ io.on('connection', function (socket) {
   socket.on('newGame', function() {
     Games.push([me]);
     console.log('new game');
-    //io.emit('games', Games);
+    io.emit('games', Games);
     socket.emit('gameNo', Games.length-1);
     socket.emit('playerNo', 0);
   });
