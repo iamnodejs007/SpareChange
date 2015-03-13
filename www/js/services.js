@@ -52,6 +52,10 @@ angular.module('starter.services', ['btford.socket-io'])
       GameState.gameNo = gameNo;
     }
 
+    GameSync.on('myId', function(me) {
+      GameSync.emit('opponent', me);
+    });
+
     GameSync.on('games', function(games) {
       console.log(JSON.stringify(games, null, 2));
       GameState.games = games;

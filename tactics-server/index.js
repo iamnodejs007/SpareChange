@@ -12,16 +12,17 @@ io.on('connection', function (socket) {
   socket.on('newGame', function() {
     Games.push([me]);
     console.log('new game');
+
+    socket.on('opponent', function(playerId) {
+     opponent = Connections[playerId];
+    });
+
     io.emit('games', Games);
-    socket.emit('gameNo', Games.length-1);
   });
   socket.on('joinGame', function(gameNo) {
-    Games[gameNo].push(me);
     opponent = Connections[Games[gameNo][0]];
-    opponent.emit('opponent', me);
-  });
-  socket.on('opponent', function(playerId) {
-    opponent = Connections[playerId];
+    Games[gameNo].push(me);
+    opponent.emit('myId', me);
   });
   console.log('connected');
   socket.on('resetTurn', function () {
