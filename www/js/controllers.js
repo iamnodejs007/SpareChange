@@ -6,11 +6,44 @@ angular.module('starter.controllers', [])
 
 .controller('GameCtrl', function($scope, $ionicModal, GameState) {
 
-  $scope.$watch(function() { return GameState.stacks }, function() {
+  $scope.$watch(function() { return GameState.update }, function() {
+    console.log(GameState.update);
     $scope.stacks = GameState.stacks;
   });
 
-  GameState.setup();
+  $scope.$watch(function() { return GameState.games }, function() {
+    $scope.games = GameState.games;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/games.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.gamesModal = modal;
+  });
+
+  $scope.setup = function() {
+    GameState.setup();
+  };
+
+  $scope.findGame = function() {
+    $scope.gamesModal.show();
+  };
+
+  $scope.closeGamesList = function() {
+    $scope.gamesModal.hide();
+  };
+
+  $scope.newGame = function() {
+    $scope.gamesModal.hide();
+    GameState.newGame();
+    GameState.setup();
+  };
+
+  $scope.joinGame = function(gameNo) {
+    $scope.gamesModal.hide();
+    GameState.joinGame(gameNo);
+    GameState.setup();
+  };
 
   $scope.range = function(i) {
     return new Array(i);

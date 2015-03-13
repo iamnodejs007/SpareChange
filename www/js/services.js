@@ -4,7 +4,8 @@ angular.module('starter.services', ['btford.socket-io'])
       numberOfStacks: 3,
       stacks: [],
       coinsPerStack: [3,4,5],
-      currentStack: null
+      currentStack: null,
+      update: 0
     };
 
     GameState.takeCoin = function(stackNo) {
@@ -22,6 +23,7 @@ angular.module('starter.services', ['btford.socket-io'])
     GameState.resetTurn = function() {
       GameState.stacks[GameState.currentStack].marked = 0;
       GameState.currentStack = null;
+      GameState.update++;
       GameSync.emit('resetTurn');
     };
 
@@ -37,11 +39,38 @@ angular.module('starter.services', ['btford.socket-io'])
       GameState.stacks[GameState.currentStack].coins -= GameState.stacks[GameState.currentStack].marked;
       GameState.stacks[GameState.currentStack].marked = 0;
       GameState.currentStack = null;
+      GameState.update++;
       GameSync.emit('endTurn');
     };
 
+    GameState.newGame = function() {
+      GameSync.emit('newGame');
+    };
+
+    GameState.joinGame = function(gameNo) {
+      GameSync.emit('joinGame', gameNo);
+      GameState.gameNo = gameNo;
+    }
+
+    GameSync.on('gameNo', function(gameNo) {
+      GameState.gameNo = gameNo;
+    });
+
+    GameSync.on('playerNo', function(playerNo) {
+      GameState.playerNo = playerNo;
+    });
+
+    GameSync.on('games', function(games) {
+      console.log(JSON.stringify(games, null, 2));
+      GameState.games = games;
+    });
+
     GameSync.on('mark', function(stackNo) {
+      if(!GameState.currentStack) {
+        GameState.currentStack = stackNo;
+      }
       GameState.stacks[stackNo].marked++;
+      GameState.update++;
     });
 
     GameSync.on('resetTurn', function() {

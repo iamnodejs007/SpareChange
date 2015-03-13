@@ -1,0 +1,17 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">Select Game</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeGamesList()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list type="list-inset">
+      <ion-item ng-repeat="game in games">
+        Game {{$index}} <button ng-click="joinGame($index)">Join</button>
+      </ion-item>
+      <button ng-click="newGame()">Create a game</button>
+    </ion-list>
+  </ion-content>
+</div>
+
