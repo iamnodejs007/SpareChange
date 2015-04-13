@@ -1,5 +1,7 @@
-var app = require('express')();
-var io = require('socket.io')(app.listen(8080));
+var app = require('http').createServer();
+var io = require('socket.io')(app);
+
+app.listen(8080)
 
 var Games = [];
 var Connections = [];
