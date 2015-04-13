@@ -1,5 +1,6 @@
 var app = require('http').createServer();
 var io = require('socket.io')(app);
+var uuid = require('node-uuid');
 
 app.listen(8080)
 
@@ -8,35 +9,32 @@ var Connections = [];
 
 io.on('connection', function (socket) {
   Connections.push(socket);
-  var me = Connections.length-1;
+  var gameNo;
   var opponent;
   socket.emit('games', Games);
   socket.on('newGame', function() {
-    Games.push([me]);
+    gameNo = uuid.v4();
+    socket.join(gameNo);
+    Games.push(gameNo);
     console.log('new game');
-
-    socket.on('opponent', function(playerId) {
-     opponent = Connections[playerId];
-    });
 
     io.emit('games', Games);
   });
-  socket.on('joinGame', function(gameNo) {
-    opponent = Connections[Games[gameNo][0]];
-    Games[gameNo].push(me);
-    opponent.emit('myId', me);
+  socket.on('joinGame', function(gameNum) {
+    socket.join(gameNum);
+    gameNo = gameNum;
   });
   console.log('connected');
   socket.on('resetTurn', function () {
     console.log('resetTurn');
-    opponent.emit('resetTurn');
+    socket.to(gameNo).emit('resetTurn');
   });
   socket.on('endTurn', function () {
     console.log('endTurn');
-    opponent.emit('endTurn');
+    socket.to(gameNo).emit('endTurn');
   });
   socket.on('mark', function (stackNo) {
     console.log(stackNo);
-    opponent.emit('mark', stackNo);
+    socket.to(gameNo).emit('mark', stackNo);
   });
 });

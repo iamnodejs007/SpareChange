@@ -8,7 +8,7 @@
   <ion-content>
     <ion-list type="list-inset">
       <ion-item ng-repeat="game in games">
-        Game {{$index}} <button ng-click="joinGame($index)">Join</button>
+        Game {{$index}} <button ng-click="joinGame(game)">Join</button>
       </ion-item>
       <button ng-click="newGame()">Create a game</button>
     </ion-list>

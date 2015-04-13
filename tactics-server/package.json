@@ -9,6 +9,7 @@
   "author": "Gregori Kanatzidis",
   "license": "MIT",
   "dependencies": {
+    "node-uuid": "^1.4.3",
     "socket.io": "^1.3.5"
   }
 }

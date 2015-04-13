@@ -52,10 +52,6 @@ angular.module('starter.services', ['btford.socket-io'])
       GameState.gameNo = gameNo;
     }
 
-    GameSync.on('myId', function(me) {
-      GameSync.emit('opponent', me);
-    });
-
     GameSync.on('games', function(games) {
       console.log(JSON.stringify(games, null, 2));
       GameState.games = games;
@@ -85,6 +81,6 @@ angular.module('starter.services', ['btford.socket-io'])
   })
   .factory('GameSync', function (socketFactory) {
     return socketFactory({
-      ioSocket: io.connect('http://localhost:8080')
+      ioSocket: io.connect('http://192.168.1.110:8080')
     });
   });
