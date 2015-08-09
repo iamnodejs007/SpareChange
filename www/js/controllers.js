@@ -6,8 +6,10 @@ angular.module('starter.controllers', [])
 
 .controller('GameCtrl', function($scope, $ionicModal, GameState) {
 
+  var pick = new Howl({ urls: ['sounds/pick_1.ogg'] });
+  var take = new Howl({ urls: ['sounds/take_1.ogg'] });
+
   $scope.$watch(function() { return GameState.update }, function() {
-    console.log(GameState.update);
     $scope.stacks = GameState.stacks;
   });
 
@@ -50,6 +52,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.next = function() {
+    take.play();
     GameState.endTurn();
 
     var left = 0;
@@ -83,6 +86,7 @@ angular.module('starter.controllers', [])
   $scope.takeCoin = function(stackNo) {
     if(!GameState.takeCoin(stackNo))
       $scope.reset(stackNo);
+    else pick.play();
   };
  
   $scope.reset = function(stack) {
