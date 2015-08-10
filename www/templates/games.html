@@ -9,8 +9,8 @@
     <ion-list type="list-inset">
       <ion-item ng-repeat="game in games">
         Game {{$index}} <button ng-click="joinGame(game)">Join</button>
-      </ion-item>
-      <button ng-click="newGame()">Create a game</button>
+        </ion-item><!-- move ng-click function into modal body that the button below displays  -->
+      <button ng-click="setupOptions()">Create a game</button>
     </ion-list>
   </ion-content>
 </div>

@@ -28,6 +28,8 @@ angular.module('starter.services', ['btford.socket-io'])
     };
 
     GameState.setup = function(options) {
+      if(options) GameState.numberOfStacks = options.numberOfStacks;
+      if(options) GameState.coinsPerStack = options.coinsPerStack;
       for(var i = 0; i < GameState.numberOfStacks; ++i)
         GameState.stacks[i] = {
           marked: 0,
