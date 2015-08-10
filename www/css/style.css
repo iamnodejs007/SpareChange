@@ -1,5 +1,11 @@
 /* Empty. Add your own CSS if you like */
 
+.w3-card-4 {
+  background-color: white;
+  height: 30px;
+  box-shadow:0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important
+}
+
 img.invis {
   display:none;
 }

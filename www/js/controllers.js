@@ -7,8 +7,21 @@ angular.module('starter.controllers', [])
 
 .controller('GameCtrl', function($scope, $ionicModal, GameState) {
 
-  var pick = new Howl({ urls: ['sounds/pick_1.ogg'] });
+  var pick = new Howl({ urls: ['sounds/pick_3.ogg'] });
   var take = new Howl({ urls: ['sounds/take_1.ogg'] });
+
+  var powerups = ['add 3', 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
+
+  function groupBy(array, num) {
+    var ret = [];
+    array.forEach(function(e, i) {
+      if(i%num === 0) ret.push([]);
+      ret[ret.length-1].push(e);
+    });
+    return ret;
+  }
+
+  $scope.powerups = groupBy(powerups, 4);
 
   $scope.$watch(function() { return GameState.update }, function() {
     $scope.stacks = GameState.stacks;

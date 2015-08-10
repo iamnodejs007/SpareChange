@@ -13,6 +13,12 @@
       <div class="row" style="position:relative; top: 200px;">
         <button on-tap="next()">Take Coins</button>
       </div>
+
+      <div class="row" ng-repeat="powerupRow in powerups" style="position:relative; top: 250px;">
+        <div class="col" ng-repeat="powerup in powerupRow">
+          <div class="powerup w3-card-4">{{powerup}}</div>
+        </div>
+      </div>
     </div>
     <div ng-show="!stacks || (stacks.length === 0)">
       <br>
