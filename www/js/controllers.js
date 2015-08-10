@@ -17,16 +17,33 @@ angular.module('starter.controllers', [])
   $scope.$watch(function() { return GameState.games }, function() {
     $scope.games = GameState.games;
   });
+  
+  $scope.setupOptions = function() {    
+    $scope.gamesModal.hide();
+    $scope.optionsModal.show();
+  };
+
+  $scope.gameInit = {
+    numberOfStacks: 0,
+    coinsPerStack: []
+  };
+
+  $scope.closeOptions = function() {
+    $scope.optionsModal.hide();
+    $scope.gamesModal.show();
+  };
+
+  $ionicModal.fromTemplateUrl('templates/options.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.optionsModal = modal;
+  });
 
   $ionicModal.fromTemplateUrl('templates/games.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.gamesModal = modal;
   });
-
-  $scope.setup = function() {
-    GameState.setup();
-  };
 
   $scope.findGame = function() {
     $scope.gamesModal.show();
@@ -37,9 +54,10 @@ angular.module('starter.controllers', [])
   };
 
   $scope.newGame = function() {
-    $scope.gamesModal.hide();
+    $scope.optionsModal.hide();
     GameState.newGame();
-    GameState.setup();
+    //throw in variables for the number of coins in the first stack and how many stacks
+    GameState.setup($scope.gameInit);
   };
 
   $scope.joinGame = function(gameNo) {
@@ -49,6 +67,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.range = function(i) {
+    i = parseInt(i) || 0;
     return new Array(i);
   }
 
