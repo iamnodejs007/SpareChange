@@ -27,12 +27,12 @@ img {
 
 .zero-one {
   position: absolute;
-  top: -11px;
+  top: -4px;
 }
 
 .zero-two {
   position: absolute;
-  top: -32px;
+  top: -18px;
 }
 
 .one-zero {
@@ -41,17 +41,17 @@ img {
 
 .one-one {
   position: absolute;
-  top: -11px;
+  top: -4px;
 }
 
 .one-two {
   position: absolute;
-  top: -32px;
+  top: -18px;
 }
 
 .one-three {
   position: absolute;
-  top: -53px;
+  top: -31px;
 }
 
 .two-zero {
@@ -60,20 +60,20 @@ img {
 
 .two-one {
   position: absolute;
-  top: -11px;
+  top: -4px;
 }
 
 .two-two {
   position: absolute;
-  top: -32px;
+  top: -18px;
 }
 
 .two-three {
   position: absolute;
-  top: -53px;
+  top: -31px;
 }
 
 .two-four {
   position: absolute;
-  top: -74px;
+  top: -46px;
 }

@@ -1,0 +1,6 @@
+note: may need to make these all active effects rather than traps
+
+add 3 coins back (trap)
+force opponent to skip turn (trap - don't find out until after they try to take their turn)
+allow player to take from more than one stack (active)
+opponent can only take 1 coin next turn (trap)
