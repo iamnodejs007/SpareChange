@@ -114,6 +114,7 @@ angular.module('starter.controllers', [])
 
   $scope.range = function(i) {
     i = parseInt(i) || 0;
+    console.log(i);
     return new Array(i);
   }
 
@@ -177,17 +178,16 @@ angular.module('starter.controllers', [])
     var store = 0;
     
     for(var i = 0; i < GameState.stacks.length; i++) {
-      store =+ GameState.stacks[i].coins;
-      GameState.stacks[i].coins = 0;
+      console.log(typeof GameState.stacks[i].coins, typeof store);
+      store += GameState.stacks[i].coins;
+      GameState.stacks[i].coins = 0
     };
-
+    
     while(store > 0){
       
-      var pos = Math.round((Math.random()*GameState.stacks.length));
-
+      var pos = Math.floor((Math.random()*GameState.stacks.length));
       GameState.stacks[pos].coins++;
-      store--
-
+      store--;
     };
   };
 
