@@ -10,7 +10,20 @@ angular.module('starter.controllers', [])
   var pick = new Howl({ urls: ['sounds/pick_3.ogg'] });
   var take = new Howl({ urls: ['sounds/take_1.ogg'] });
 
-  var powerups = ['add 3', 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
+  var noop = function(){};
+
+  var powerups = [{
+    name: 'add 3',
+    action: noop,
+  }, {
+    name: 'take from smallest',
+    action: forceSmallestStack
+  }];
+  //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
+
+  $scope.setPowerup = function(powerup) {
+    $scope.powerup = powerup;
+  };
 
   function groupBy(array, num) {
     var ret = [];
@@ -85,8 +98,10 @@ angular.module('starter.controllers', [])
   }
 
   $scope.next = function() {
+    if(!$scope.powerup) return;
+    // alert that no powerup has been selected
     take.play();
-    GameState.endTurn();
+    GameState.endTurn($scope.powerup);
 
     var left = 0;
     for(var i = 0; i < GameState.stacks.length; ++i)
@@ -99,6 +114,29 @@ angular.module('starter.controllers', [])
     }
 
   };
+  
+  function forceSmallestStack() {
+   
+    var target = 0;
+
+    for(var i = 0; i < GameState.stacks.length; i++) {
+      
+      if((GameState.stacks[i].coins < GameState.stacks[target].coins) &&
+          GameState.stacks[target].coins !== 0 &&
+          GameState.stacks[i].coins !== 0)
+
+        target = i;
+      else if(GameState.stacks[target].coins === 0) target++;
+    }
+   
+   if(GameState.stacks[GameState.currentStack].coins === GameState.stacks[target].coins)
+     return; 
+
+    GameState.alternativeStack = target;
+    console.log(JSON.stringify(GameState, null, 2));
+    if(GameState.stacks[target].coins < GameState.stacks[GameState.currentStack].marked)
+      GameState.stacks[GameState.currentStack].marked = GameState.stacks[target].coins  
+  };
 
   $scope.doReset = function(maybe) {
 
@@ -107,7 +145,7 @@ angular.module('starter.controllers', [])
     if(maybe) {
       GameState.resetTurn();
     }
-
+    
   };
 
   $ionicModal.fromTemplateUrl('templates/areyousure.html', {

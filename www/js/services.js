@@ -5,7 +5,8 @@ angular.module('starter.services', ['btford.socket-io'])
       stacks: [],
       coinsPerStack: [3,4,5],
       currentStack: null,
-      update: 0
+      update: 0,
+      alternativeStack: null
     };
 
     GameState.takeCoin = function(stackNo) {
@@ -37,10 +38,14 @@ angular.module('starter.services', ['btford.socket-io'])
         };
     };
 
-    GameState.endTurn = function() {
-      GameState.stacks[GameState.currentStack].coins -= GameState.stacks[GameState.currentStack].marked;
+    GameState.endTurn = function(powerup) {
+      powerup();
+      var stack = GameState.currentStack;
+      if(GameState.alternativeStack !== null) stack = GameState.alternativeStack;
+      GameState.stacks[stack].coins -= GameState.stacks[GameState.currentStack].marked;
       GameState.stacks[GameState.currentStack].marked = 0;
       GameState.currentStack = null;
+      GameState.alternativeStack = null;
       GameState.update++;
       GameSync.emit('endTurn');
     };
