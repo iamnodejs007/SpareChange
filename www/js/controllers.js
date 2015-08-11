@@ -21,7 +21,11 @@ angular.module('starter.controllers', [])
   }, {
     name: 'skip next turn',
     action: skipNextTurn
-  }];
+  }.{
+    name: 'take from largest',
+    action: forceLargestStack
+  }
+}];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
 
   function skipNextTurn() {
@@ -124,8 +128,7 @@ angular.module('starter.controllers', [])
 
   };
   
-  function forceSmallestStack() {
-   
+  function forceSmallestStack() { 
     var target = 0;
 
     for(var i = 0; i < GameState.stacks.length; i++) {
@@ -133,7 +136,6 @@ angular.module('starter.controllers', [])
       if((GameState.stacks[i].coins < GameState.stacks[target].coins) &&
           GameState.stacks[target].coins !== 0 &&
           GameState.stacks[i].coins !== 0)
-
         target = i;
       else if(GameState.stacks[target].coins === 0) target++;
     }
@@ -145,6 +147,21 @@ angular.module('starter.controllers', [])
     console.log(JSON.stringify(GameState, null, 2));
     if(GameState.stacks[target].coins < GameState.stacks[GameState.currentStack].marked)
       GameState.stacks[GameState.currentStack].marked = GameState.stacks[target].coins  
+  };
+  
+  function forceLargestStack(){
+    var target = 0;
+
+    for(var i=0; i < GameState.stacks.length; i++){
+      if(GameState.stacks[i].coins > GameState.stacks[target].coins)
+        target = i; 
+    }
+   
+    if(GameState.stacks[GameState.currentStack].coins === GameState.stacks[target].coins)
+      return;
+   
+    GameState.alternativeStack = target;
+  
   };
 
   $scope.doReset = function(maybe) {
