@@ -21,11 +21,10 @@ angular.module('starter.controllers', [])
   }, {
     name: 'skip next turn',
     action: skipNextTurn
-  }.{
+  }, {
     name: 'take from largest',
     action: forceLargestStack
-  }
-}];
+  }];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
 
   function skipNextTurn() {
