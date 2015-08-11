@@ -24,8 +24,15 @@ angular.module('starter.controllers', [])
   }, {
     name: 'take from largest',
     action: forceLargestStack
+  }, {
+    name: 'only one coin',
+    action: takeOneCoinOnly
   }];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
+
+  function takeOneCoinOnly() {
+    GameState.stacks[GameState.currentStack].marked = 1;
+  }
 
   function skipNextTurn() {
     GameState.resetTurn();
