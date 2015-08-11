@@ -18,8 +18,15 @@ angular.module('starter.controllers', [])
   }, {
     name: 'take from smallest',
     action: forceSmallestStack
+  }, {
+    name: 'skip next turn',
+    action: skipNextTurn
   }];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
+
+  function skipNextTurn() {
+    GameState.resetTurn();
+  }
 
   $scope.setPowerup = function(powerup) {
     $scope.powerup = powerup;
@@ -98,7 +105,9 @@ angular.module('starter.controllers', [])
   }
 
   $scope.next = function() {
-    if(!$scope.powerup) return;
+    if(!$scope.powerup) {
+      return alert('no powerup selected');
+    }
     // alert that no powerup has been selected
     take.play();
     GameState.endTurn($scope.powerup);

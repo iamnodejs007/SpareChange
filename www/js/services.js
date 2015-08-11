@@ -40,6 +40,7 @@ angular.module('starter.services', ['btford.socket-io'])
 
     GameState.endTurn = function(powerup) {
       powerup();
+      if(GameState.currentStack === null) return;
       var stack = GameState.currentStack;
       if(GameState.alternativeStack !== null) stack = GameState.alternativeStack;
       GameState.stacks[stack].coins -= GameState.stacks[GameState.currentStack].marked;
