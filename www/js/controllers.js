@@ -27,6 +27,9 @@ angular.module('starter.controllers', [])
   }, {
     name: 'only one coin',
     action: takeOneCoinOnly
+  }, {
+    name: 'redistribute coins',
+    action: redistributeCoins 
   }];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
 
@@ -168,6 +171,24 @@ angular.module('starter.controllers', [])
    
     GameState.alternativeStack = target;
   
+  };
+  
+  function redistributeCoins() {
+    var store = 0;
+    
+    for(var i = 0; i < GameState.stacks.length; i++) {
+      store =+ GameState.stacks[i].coins;
+      GameState.stacks[i].coins = 0;
+    };
+
+    while(store > 0){
+      
+      var pos = Math.round((Math.random()*GameState.stacks.length));
+
+      GameState.stacks[pos].coins++;
+      store--
+
+    };
   };
 
   $scope.doReset = function(maybe) {
