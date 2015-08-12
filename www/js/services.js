@@ -34,7 +34,7 @@ angular.module('starter.services', ['btford.socket-io'])
       for(var i = 0; i < GameState.numberOfStacks; ++i)
         GameState.stacks[i] = {
           marked: 0,
-          coins: GameState.coinsPerStack[i]
+          coins: parseInt(GameState.coinsPerStack[i])
         };
     };
 
@@ -45,6 +45,7 @@ angular.module('starter.services', ['btford.socket-io'])
       if(GameState.alternativeStack !== null) stack = GameState.alternativeStack;
       GameState.stacks[stack].coins -= GameState.stacks[GameState.currentStack].marked;
       GameState.stacks[GameState.currentStack].marked = 0;
+      if(GameState.stacks[stack].coins < 0) GameState.stacks[stack].coins = 0;
       GameState.currentStack = null;
       GameState.alternativeStack = null;
       GameState.update++;
