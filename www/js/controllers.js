@@ -60,6 +60,11 @@ angular.module('starter.controllers', [])
     $scope.stacks = GameState.stacks;
   });
 
+  $scope.$watch(function() { return GameState.player }, function() {
+    $scope.powerup = null;
+    $scope.message = '';
+  });
+
   $scope.$watch(function() { return GameState.games }, function() {
     $scope.games = GameState.games;
   });
@@ -196,6 +201,7 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
 
     if(maybe) {
+      $scope.message = '';
       GameState.resetTurn();
     }
     
@@ -207,7 +213,16 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
+  $scope.message = '';
+
   $scope.takeCoin = function(stackNo) {
+    if(GameState.stacks[stackNo].marked == GameState.stacks[stackNo].coins) {
+      return;
+    }
+    if(GameState.stacks[stackNo].marked == 3) {
+      $scope.message = 'You can only take up to 3 coins';
+      return;
+    }
     if(!GameState.takeCoin(stackNo))
       $scope.reset(stackNo);
     else pick.play();
