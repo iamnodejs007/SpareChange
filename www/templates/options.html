@@ -8,7 +8,8 @@
   <ion-content>
     <ion-list type="list-inset">
       <label>Number of coin stacks</label>
-      <input ng-model="gameInit.numberOfStacks" convert-to-number></input>
+      <input ng-model="gameInit.numberOfStacks" type="number" min="3" max="10"  convert-to-number></input>
+      <div ng-show="showValidationStackError">{{ showValidationStackError }}</div>
       <div class="row" ng-show="gameInit.numberOfStacks > 0">
         <div class="col" ng-repeat="i in range(gameInit.numberOfStacks) track by $index">
           <label>Number of coins in the stack</label>

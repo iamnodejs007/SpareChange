@@ -14,7 +14,7 @@ angular.module('starter.controllers', [])
 
   var powerups = [{
     name: 'add 3',
-    action: noop,
+    action: addOrRedistributeCoins(3),
   }, {
     name: 'take from smallest',
     action: forceSmallestStack
@@ -29,7 +29,7 @@ angular.module('starter.controllers', [])
     action: takeOneCoinOnly
   }, {
     name: 'redistribute coins',
-    action: redistributeCoins 
+    action: addOrRedistributeCoins() 
   }];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
 
@@ -107,8 +107,8 @@ angular.module('starter.controllers', [])
   $scope.newGame = function() {
     $scope.optionsModal.hide();
     GameState.newGame();
-    //throw in variables for the number of coins in the first stack and how many stacks
     GameState.setup($scope.gameInit);
+    console.log(GameState);
   };
 
   $scope.joinGame = function(gameNo) {
@@ -118,6 +118,9 @@ angular.module('starter.controllers', [])
   };
 
   $scope.range = function(i) {
+    
+    console.log(i, typeof(i));
+      
     i = parseInt(i) || 0;
     return new Array(i);
   }
@@ -177,21 +180,35 @@ angular.module('starter.controllers', [])
   
   };
   
-  function redistributeCoins() {
-    var store = 0;
+  function addOrRedistributeCoins(num) {
+    return function() {
+      var store = 0;
+       
+      if(num === null){ 
+        //random redistribution of all coins 
+        for(var i = 0; i < GameState.stacks.length; i++) {
+          console.log(typeof GameState.stacks[i].coins, typeof store);
+          store += GameState.stacks[i].coins;
+          GameState.stacks[i].coins = 0;
+        };
+      } else {
+        //addition of 3 coins onto the field
+        store = num;    
+      }
+        
+      while(store > 0){ 
+        var pos = Math.floor((Math.random()*GameState.stacks.length));
+        
+        GameState.stacks[pos].coins++;
+        store--; 
+      };
     
-    for(var i = 0; i < GameState.stacks.length; i++) {
-      store += GameState.stacks[i].coins;
-      GameState.stacks[i].coins = 0
-    };
-    
-    while(store > 0){
-      
-      var pos = Math.floor((Math.random()*GameState.stacks.length));
-      GameState.stacks[pos].coins++;
-      store--;
-    };
+    } 
   };
+
+  function addCoinsRandomly() {
+    
+  }
 
   $scope.doReset = function(maybe) {
 
