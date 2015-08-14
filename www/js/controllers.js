@@ -113,10 +113,15 @@ angular.module('starter.controllers', [])
   };
 
   $scope.newGame = function() {
-    $scope.optionsModal.hide();
-    GameState.newGame();
-    GameState.setup($scope.gameInit);
-    console.log(GameState);
+    if($scope.gameInit.numberOfStacks < 3 || $scope.gameInit.numberOfStacks > 10) {
+      console.log("Number of stacks outside of allowed range.... BEEYATHCOMANGODANGO");
+      $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 3 to 10";   
+    } else {
+      $scope.optionsModal.hide();
+      GameState.newGame();
+      GameState.setup($scope.gameInit);
+      console.log(GameState);
+    };
   };
 
   $scope.joinGame = function(gameNo) {
@@ -135,7 +140,8 @@ angular.module('starter.controllers', [])
 
   $scope.next = function() {
     if(!$scope.powerup) {
-      return alert('no powerup selected');
+      $scope.message = "No powerup selected";
+      return; 
     }
     // alert that no powerup has been selected
     take.play();
