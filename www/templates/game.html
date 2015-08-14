@@ -20,7 +20,7 @@
 
       <div class="row" ng-repeat="powerupRow in powerups" style="position:relative; top: 250px;">
         <div class="col" ng-repeat="powerup in powerupRow">
-          <div class="powerup w3-card-4" ng-click="setPowerup(powerup.action)">{{powerup.name}}</div>
+          <div ng-class="powerupClass(powerup.name)" ng-click="setPowerup(powerup)">{{powerup.name}}</div>
         </div>
       </div>
     </div>

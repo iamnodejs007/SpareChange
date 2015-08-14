@@ -42,7 +42,14 @@ angular.module('starter.controllers', [])
   }
 
   $scope.setPowerup = function(powerup) {
-    $scope.powerup = powerup;
+    $scope.powerup = powerup.action;
+    $scope.selectedPowerupName = powerup.name;
+  };
+
+  $scope.powerupClass = function(name) {
+    var css = 'powerup w3-card-4';
+    if($scope.selectedPowerupName === name) css += ' grayscale';
+    return css;
   };
 
   function groupBy(array, num) {
