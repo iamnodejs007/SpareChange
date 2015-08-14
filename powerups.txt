@@ -4,6 +4,6 @@ add 3 coins back (trap)
 force opponent to skip turn (trap - don't find out until after they try to take their turn)
 allow player to take from more than one stack (active)
 opponent can only take 1 coin next turn (trap) or opponent takes fewer coins than they try to
-redistribute the stacks (active)
+redistribute the stacks (trap)
 opponent forced to take from largest stack
 opponent forced to take from smallest stack

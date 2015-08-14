@@ -7,13 +7,16 @@
   </ion-header-bar>
   <ion-content>
     <ion-list type="list-inset">
-      <label>Number of coin stacks</label>
-      <input ng-model="gameInit.numberOfStacks" convert-to-number></input>
-      <div class="row" ng-show="gameInit.numberOfStacks > 0">
+    <label>Number of coin stacks</label>
+    <!-- think of non-intrusive design to inform as to min and max stack number-->
+    <div>
+      <input ng-model="gameInit.numberOfStacks" type="number" convert-to-number></input>
+        <div>
+          <span style="background-color: white; color: red;">{{ stacksValidationMessage }}</span>
+        </div>
         <div class="col" ng-repeat="i in range(gameInit.numberOfStacks) track by $index">
           <label>Number of coins in the stack</label>
-          <select ng-model="gameInit.coinsPerStack[$index]" convert-to-number>
-            <option ng-repeat="val in [1,2,3,4,5,6,7,8,9,10]" value="{{val}}">{{val}}</option>
+          <select ng-init="gameInit.coinsPerStack[$index] = $index+3" ng-options="val for val in [1,2,3,4,5,6,7,8,9,10]" ng-model="gameInit.coinsPerStack[$index]" convert-to-number>
           </select>
         </div>
       </div>
