@@ -247,22 +247,28 @@ angular.module('starter.controllers', [])
   };
 
   $scope.getCss = function(stack, coin) {
-    var names = [
-      "zero",
-      "one",
-      "two",
-      "three",
-      "four",
-      "five"
-    ];
-
-    var gray = '';
+    var css = '';
     if(stack === GameState.currentStack &&
         coin >= $scope.stacks[stack].coins - $scope.stacks[stack].marked) {
-      gray = ' grayscale';
+      css = 'grayscale';
     }
     if($scope.stacks[stack].coins <= coin) return 'invis';
-    else return names[stack]+'-'+names[coin]+gray;
+    else return css;
+  };
+
+  $scope.getStyle = function(stack, coin) {
+    var style = {
+      position: 'absolute'
+    }
+
+    if(coin == 0) {
+    } else if(coin == 1) {
+      style.top = '-4px';
+    } else {
+      style.top = '-' + (14*(coin-1)+4) + 'px';
+    }
+
+    return style;
   };
 
 });
