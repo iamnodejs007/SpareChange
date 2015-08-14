@@ -114,13 +114,11 @@ angular.module('starter.controllers', [])
 
   $scope.newGame = function() {
     if($scope.gameInit.numberOfStacks < 3 || $scope.gameInit.numberOfStacks > 10) {
-      console.log("Number of stacks outside of allowed range.... BEEYATHCOMANGODANGO");
       $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 3 to 10";   
     } else {
       $scope.optionsModal.hide();
       GameState.newGame();
       GameState.setup($scope.gameInit);
-      console.log(GameState);
     };
   };
 
@@ -131,9 +129,6 @@ angular.module('starter.controllers', [])
   };
 
   $scope.range = function(i) {
-    
-    console.log(i, typeof(i));
-      
     i = parseInt(i) || 0;
     return new Array(i);
   }
@@ -201,7 +196,6 @@ angular.module('starter.controllers', [])
       if(num === null){ 
         //random redistribution of all coins 
         for(var i = 0; i < GameState.stacks.length; i++) {
-          console.log(typeof GameState.stacks[i].coins, typeof store);
           store += GameState.stacks[i].coins;
           GameState.stacks[i].coins = 0;
         };
