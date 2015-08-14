@@ -60,6 +60,11 @@ angular.module('starter.controllers', [])
     $scope.stacks = GameState.stacks;
   });
 
+  $scope.$watch(function() { return GameState.player }, function() {
+    $scope.powerup = null;
+    $scope.message = '';
+  });
+
   $scope.$watch(function() { return GameState.games }, function() {
     $scope.games = GameState.games;
   });
@@ -114,7 +119,6 @@ angular.module('starter.controllers', [])
 
   $scope.range = function(i) {
     i = parseInt(i) || 0;
-    console.log(i);
     return new Array(i);
   }
 
@@ -154,7 +158,6 @@ angular.module('starter.controllers', [])
      return; 
 
     GameState.alternativeStack = target;
-    console.log(JSON.stringify(GameState, null, 2));
     if(GameState.stacks[target].coins < GameState.stacks[GameState.currentStack].marked)
       GameState.stacks[GameState.currentStack].marked = GameState.stacks[target].coins  
   };
@@ -178,7 +181,6 @@ angular.module('starter.controllers', [])
     var store = 0;
     
     for(var i = 0; i < GameState.stacks.length; i++) {
-      console.log(typeof GameState.stacks[i].coins, typeof store);
       store += GameState.stacks[i].coins;
       GameState.stacks[i].coins = 0
     };
@@ -196,6 +198,7 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
 
     if(maybe) {
+      $scope.message = '';
       GameState.resetTurn();
     }
     
@@ -207,7 +210,16 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
+  $scope.message = '';
+
   $scope.takeCoin = function(stackNo) {
+    if(GameState.stacks[stackNo].marked == GameState.stacks[stackNo].coins) {
+      return;
+    }
+    if(GameState.stacks[stackNo].marked == 3) {
+      $scope.message = 'You can only take up to 3 coins';
+      return;
+    }
     if(!GameState.takeCoin(stackNo))
       $scope.reset(stackNo);
     else pick.play();

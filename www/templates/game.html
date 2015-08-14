@@ -14,6 +14,10 @@
         <button on-tap="next()">Take Coins</button>
       </div>
 
+      <div class="row" style="position:relative; top: 220px;">
+        <div style="background-color: white;color: red">{{message}}</div>
+      </div>
+
       <div class="row" ng-repeat="powerupRow in powerups" style="position:relative; top: 250px;">
         <div class="col" ng-repeat="powerup in powerupRow">
           <div class="powerup w3-card-4" ng-click="setPowerup(powerup.action)">{{powerup.name}}</div>
