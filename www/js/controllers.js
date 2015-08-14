@@ -115,7 +115,7 @@ angular.module('starter.controllers', [])
   $scope.newGame = function() {
     if($scope.gameInit.numberOfStacks < 3 || $scope.gameInit.numberOfStacks > 10) {
       console.log("Number of stacks outside of allowed range.... BEEYATHCOMANGODANGO");
-      $scope.stacksValidationMessage = "'CHECK YOURSTACKS MOTHAAAAA FUCKAAA!'; from Flappy Mc'Wobbletons our lord and savior and his precious HB.";   
+      $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 3 to 10";   
     } else {
       $scope.optionsModal.hide();
       GameState.newGame();
@@ -127,7 +127,6 @@ angular.module('starter.controllers', [])
   $scope.joinGame = function(gameNo) {
     $scope.gamesModal.hide();
     GameState.joinGame(gameNo);
-    B
     GameState.setup();
   };
 
