@@ -69,6 +69,7 @@ angular.module('starter.controllers', [])
 
   $scope.$watch(function() { return GameState.player }, function() {
     $scope.powerup = null;
+    $scope.selectedPowerupName = null;
     $scope.message = '';
   });
 
