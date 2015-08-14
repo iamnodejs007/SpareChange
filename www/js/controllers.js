@@ -113,10 +113,14 @@ angular.module('starter.controllers', [])
   };
 
   $scope.newGame = function() {
-    $scope.optionsModal.hide();
-    GameState.newGame();
-    GameState.setup($scope.gameInit);
-    console.log(GameState);
+    if($scope.gameInit.numberOfStacks < 3 || $scope.gameInit.numberOfStacks > 10) {
+      console.log("Number of stacks outside of allowed range.... BEEYATHCOMANGODANGO");  
+    } else {
+      $scope.optionsModal.hide();
+      GameState.newGame();
+      GameState.setup($scope.gameInit);
+      console.log(GameState);
+    };
   };
 
   $scope.joinGame = function(gameNo) {
