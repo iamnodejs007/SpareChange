@@ -6,6 +6,10 @@
   box-shadow:0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important
 }
 
+.w3-card-4.grayscale {
+  background-color: gray;
+}
+
 img.invis {
   display:none;
 }
@@ -30,59 +34,3 @@ img {
   background-image: url("/img/bg.jpg");
 }
 
-.zero-zero {
-  position: absolute;
-}
-
-.zero-one {
-  position: absolute;
-  top: -4px;
-}
-
-.zero-two {
-  position: absolute;
-  top: -18px;
-}
-
-.one-zero {
-  position: absolute;
-}
-
-.one-one {
-  position: absolute;
-  top: -4px;
-}
-
-.one-two {
-  position: absolute;
-  top: -18px;
-}
-
-.one-three {
-  position: absolute;
-  top: -31px;
-}
-
-.two-zero {
-  position: absolute;
-}
-
-.two-one {
-  position: absolute;
-  top: -4px;
-}
-
-.two-two {
-  position: absolute;
-  top: -18px;
-}
-
-.two-three {
-  position: absolute;
-  top: -31px;
-}
-
-.two-four {
-  position: absolute;
-  top: -46px;
-}

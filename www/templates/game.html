@@ -6,7 +6,7 @@
     <div ng-show="stacks && (stacks.length > 0)">
       <div class="row" style="position:absolute; top: 100px;">
         <div class="col" ng-repeat="stack in stacks" on-tap="takeCoin($index)">
-          <img ng-repeat="coin in range(stack.coins) track by $index" ng-src="img/coin.png" ng-class="getCss($parent.$index, $index)"></img>
+          <img ng-repeat="coin in range(stack.coins) track by $index" ng-src="img/coin.png" ng-class="getCss($parent.$index, $index)" ng-style="getStyle($parent.$index, $index)"></img>
         </div>
       </div>
 
@@ -20,7 +20,7 @@
 
       <div class="row" ng-repeat="powerupRow in powerups" style="position:relative; top: 250px;">
         <div class="col" ng-repeat="powerup in powerupRow">
-          <div class="powerup w3-card-4" ng-click="setPowerup(powerup.action)">{{powerup.name}}</div>
+          <div ng-class="powerupClass(powerup.name)" ng-click="setPowerup(powerup)">{{powerup.name}}</div>
         </div>
       </div>
     </div>
