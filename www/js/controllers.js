@@ -134,11 +134,15 @@ angular.module('starter.controllers', [])
   }
 
   $scope.next = function() {
+    if(!GameState.currentStack) {
+      $scope.message = "You must select at least one coin.";
+      return;
+    }
     if(!$scope.powerup) {
       $scope.message = "No powerup selected";
       return; 
     }
-    // alert that no powerup has been selected
+    // sound effect
     take.play();
     GameState.endTurn($scope.powerup);
 
@@ -161,29 +165,30 @@ angular.module('starter.controllers', [])
       
       if((GameState.stacks[i].coins < GameState.stacks[target].coins) &&
           GameState.stacks[target].coins !== 0 &&
-          GameState.stacks[i].coins !== 0)
+          GameState.stacks[i].coins !== 0) {
+
         target = i;
-      else if(GameState.stacks[target].coins === 0) target++;
+      } else if(GameState.stacks[target].coins === 0) {
+        target++;
+      }
     }
    
-   if(GameState.stacks[GameState.currentStack].coins === GameState.stacks[target].coins)
-     return; 
+   if(GameState.stacks[GameState.currentStack].coins === GameState.stacks[target].coins)  return;
 
     GameState.alternativeStack = target;
-    if(GameState.stacks[target].coins < GameState.stacks[GameState.currentStack].marked)
+    if(GameState.stacks[target].coins < GameState.stacks[GameState.currentStack].marked) {
       GameState.stacks[GameState.currentStack].marked = GameState.stacks[target].coins  
+    }
   };
   
   function forceLargestStack(){
     var target = 0;
 
     for(var i=0; i < GameState.stacks.length; i++){
-      if(GameState.stacks[i].coins > GameState.stacks[target].coins)
-        target = i; 
+      if(GameState.stacks[i].coins > GameState.stacks[target].coins) target = i; 
     }
    
-    if(GameState.stacks[GameState.currentStack].coins === GameState.stacks[target].coins)
-      return;
+    if(GameState.stacks[GameState.currentStack].coins === GameState.stacks[target].coins) return;
    
     GameState.alternativeStack = target;
   
@@ -214,10 +219,6 @@ angular.module('starter.controllers', [])
     } 
   };
 
-  function addCoinsRandomly() {
-    
-  }
-
   $scope.doReset = function(maybe) {
 
     $scope.modal.hide();
@@ -239,15 +240,19 @@ angular.module('starter.controllers', [])
 
   $scope.takeCoin = function(stackNo) {
     if(GameState.stacks[stackNo].marked == GameState.stacks[stackNo].coins) {
+      // If the player has already selected all the coins in the stack, can't take more
       return;
     }
     if(GameState.stacks[stackNo].marked == 3) {
       $scope.message = 'You can only take up to 3 coins';
       return;
     }
-    if(!GameState.takeCoin(stackNo))
+    if(!GameState.takeCoin(stackNo)) {
       $scope.reset(stackNo);
-    else pick.play();
+    } else {
+      // Sound effect
+      pick.play();
+    }
   };
  
   $scope.reset = function(stack) {
