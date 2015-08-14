@@ -9,6 +9,7 @@
     <ion-list type="list-inset">
     <label>Number of coin stacks</label>
     <!-- think of non-intrusive design to inform as to min and max stack number-->
+    <div>
       <input ng-model="gameInit.numberOfStacks" type="number" convert-to-number></input>
         <div>
           <span style="background-color: white; color: red;">{{ stacksValidationMessage }}</span>

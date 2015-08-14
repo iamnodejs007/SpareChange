@@ -198,7 +198,7 @@ angular.module('starter.controllers', [])
     return function() {
       var store = 0;
        
-      if(num === null){ 
+      if(num == null){ 
         //random redistribution of all coins 
         for(var i = 0; i < GameState.stacks.length; i++) {
           store += GameState.stacks[i].coins;
