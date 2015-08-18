@@ -6,6 +6,7 @@ angular.module('starter.services', [/* 'btford.socket-io' */])
       coinsPerStack: [3,4,5],
       currentStack: null,
       update: 0,
+      trapPowerup: null,
       player: true, // true: player 1, false: player 2
       alternativeStack: null
     };
@@ -43,8 +44,11 @@ angular.module('starter.services', [/* 'btford.socket-io' */])
     };
 
     GameState.endTurn = function(powerup) {
-      powerup();
       if(GameState.currentStack === null) return;
+      if(powerup.type === 'active') powerup.action();
+      if(GameState.trapPowerup) GameState.trapPowerup();
+      if(powerup.type === 'trap') GameState.trapPowerup = powerup.action;
+      else GameState.trapPowerup = null;
       var stack = GameState.currentStack;
       if(GameState.alternativeStack !== null) stack = GameState.alternativeStack;
       GameState.stacks[stack].coins -= GameState.stacks[GameState.currentStack].marked;

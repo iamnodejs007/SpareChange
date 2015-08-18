@@ -15,21 +15,27 @@ angular.module('starter.controllers', [])
   var powerups = [{
     name: 'add 3',
     action: addOrRedistributeCoins(3),
+    type: 'trap'
   }, {
     name: 'take from smallest',
-    action: forceSmallestStack
+    action: forceSmallestStack,
+    type: 'trap'
   }, {
     name: 'skip next turn',
-    action: skipNextTurn
+    action: skipNextTurn,
+    type: 'trap'
   }, {
     name: 'take from largest',
-    action: forceLargestStack
+    action: forceLargestStack,
+    type: 'trap'
   }, {
     name: 'only one coin',
-    action: takeOneCoinOnly
+    action: takeOneCoinOnly,
+    type: 'trap'
   }, {
     name: 'redistribute coins',
-    action: addOrRedistributeCoins() 
+    action: addOrRedistributeCoins(),
+    type: 'trap'
   }];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
 
@@ -43,6 +49,7 @@ angular.module('starter.controllers', [])
 
   $scope.setPowerup = function(powerup) {
     $scope.powerup = powerup.action;
+    $scope.selectedPowerup = powerup;
     $scope.selectedPowerupName = powerup.name;
   };
 
@@ -70,6 +77,7 @@ angular.module('starter.controllers', [])
   $scope.$watch(function() { return GameState.player }, function() {
     $scope.powerup = null;
     $scope.selectedPowerupName = null;
+    $scope.selectedPowerup = null;
     $scope.message = '';
   });
 
