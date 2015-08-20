@@ -202,8 +202,8 @@ angular.module('starter.controllers', [])
       left+= GameState.stacks[i].coins;
     
     if(left <= 1) {
-      GameState.setup();
       $scope.newGameChoiceModal.show();
+      GameState.setup();
     //  $scope.setupOptions(); 
     }
 
