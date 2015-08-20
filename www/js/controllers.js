@@ -147,7 +147,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.next = function() {
-    if(!GameState.currentStack) {
+    if(GameState.currentStack === null) {
       $scope.message = "You must select at least one coin.";
       return;
     }
