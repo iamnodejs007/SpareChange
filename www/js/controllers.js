@@ -111,9 +111,11 @@ angular.module('starter.controllers', [])
     $scope.gamesModal = modal;
   });
 
-  $scope.findGame = function() {
-    $scope.gamesModal.show();
-  };
+ // $ionicModal.fromTemplateUrl('templates/newGameChoice.html', {
+ //   scope: $scope
+ // }).then(function(modal) {
+ //   $scope.newGameChoiceModal = modal;
+ // });
 
   $scope.closeGamesList = function() {
     $scope.gamesModal.hide();
@@ -161,8 +163,9 @@ angular.module('starter.controllers', [])
     
     if(left <= 1) {
       alert('Game Over!');
-
       GameState.setup();
+     // newGameModal.show();
+     // gameModal.hide();
     }
 
   };
