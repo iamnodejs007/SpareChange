@@ -78,7 +78,6 @@ angular.module('starter.controllers', [])
     $scope.powerup = null;
     $scope.selectedPowerupName = null;
     $scope.selectedPowerup = null;
-    $scope.message = '';
   });
 
   $scope.$watch(function() { return GameState.games }, function() {
@@ -152,7 +151,9 @@ angular.module('starter.controllers', [])
     }
     // sound effect
     take.play();
-    GameState.endTurn($scope.powerup);
+    GameState.endTurn($scope.selectedPowerup, function(msg) {
+      $scope.message = msg;
+    });
 
     var left = 0;
     for(var i = 0; i < GameState.stacks.length; ++i)

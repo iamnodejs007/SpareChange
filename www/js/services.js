@@ -43,11 +43,14 @@ angular.module('starter.services', [/* 'btford.socket-io' */])
         };
     };
 
-    GameState.endTurn = function(powerup) {
+    GameState.endTurn = function(powerup, setMessage) {
       if(GameState.currentStack === null) return;
       if(powerup.type === 'active') powerup.action();
-      if(GameState.trapPowerup) GameState.trapPowerup();
-      if(powerup.type === 'trap') GameState.trapPowerup = powerup.action;
+      if(GameState.trapPowerup) {
+        GameState.trapPowerup.action();
+        setMessage("Surprise! Opponent played " + GameState.trapPowerup.name);
+      }
+      if(powerup.type === 'trap') GameState.trapPowerup = powerup;
       else GameState.trapPowerup = null;
       var stack = GameState.currentStack;
       if(GameState.alternativeStack !== null) stack = GameState.alternativeStack;
