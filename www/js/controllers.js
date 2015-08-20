@@ -90,6 +90,12 @@ angular.module('starter.controllers', [])
     $scope.optionsModal.show();
   };
 
+  $scope.toMenu = function () {
+    GameState.stacks = null;
+    GameState.update++;
+    $scope.newGameChoiceModal.hide();
+  }
+
   $scope.gameInit = {
     numberOfStacks: 0,
     coinsPerStack: []
