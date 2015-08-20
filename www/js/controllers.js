@@ -86,6 +86,7 @@ angular.module('starter.controllers', [])
   
   $scope.setupOptions = function() {    
     $scope.gamesModal.hide();
+    $scope.newGameChoiceModal.hide();
     $scope.optionsModal.show();
   };
 
@@ -103,13 +104,25 @@ angular.module('starter.controllers', [])
     scope: $scope
   }).then(function(modal) {
     $scope.optionsModal = modal;
-  });
+  }); 
 
   $ionicModal.fromTemplateUrl('templates/games.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.gamesModal = modal;
   });
+
+  $ionicModal.fromTemplateUrl('templates/newGameChoice.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.newGameChoiceModal = modal;
+  }); 
+  
+  // $ionicModal.fromTemplateUrl('templates/menu.html', {
+ //   scope: $scope
+ // }).then(function(modal) {
+ //   $scope.menuModal = modal;
+ /// });
 
   $scope.findGame = function () {
     $scope.gamesModal.show();
@@ -160,13 +173,13 @@ angular.module('starter.controllers', [])
       left+= GameState.stacks[i].coins;
     
     if(left <= 1) {
-      alert('Game Over!');
       GameState.setup();
-      $scope.setupOptions(); 
+      $scope.newGameChoiceModal.show();
+    //  $scope.setupOptions(); 
     }
 
   };
-  
+
   function forceSmallestStack() { 
     var target = 0;
 
