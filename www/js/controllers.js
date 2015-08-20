@@ -86,8 +86,15 @@ angular.module('starter.controllers', [])
   
   $scope.setupOptions = function() {    
     $scope.gamesModal.hide();
+    $scope.newGameChoiceModal.hide();
     $scope.optionsModal.show();
   };
+
+  $scope.toMenu = function () {
+    GameState.stacks = null;
+    GameState.update++;
+    $scope.newGameChoiceModal.hide();
+  }
 
   $scope.gameInit = {
     numberOfStacks: 0,
@@ -103,7 +110,7 @@ angular.module('starter.controllers', [])
     scope: $scope
   }).then(function(modal) {
     $scope.optionsModal = modal;
-  });
+  }); 
 
   $ionicModal.fromTemplateUrl('templates/games.html', {
     scope: $scope
@@ -111,9 +118,21 @@ angular.module('starter.controllers', [])
     $scope.gamesModal = modal;
   });
 
-  $scope.findGame = function() {
+  $ionicModal.fromTemplateUrl('templates/newGameChoice.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.newGameChoiceModal = modal;
+  }); 
+  
+  // $ionicModal.fromTemplateUrl('templates/menu.html', {
+ //   scope: $scope
+ // }).then(function(modal) {
+ //   $scope.menuModal = modal;
+ /// });
+
+  $scope.findGame = function () {
     $scope.gamesModal.show();
-  };
+  }
 
   $scope.closeGamesList = function() {
     $scope.gamesModal.hide();
@@ -141,7 +160,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.next = function() {
-    if(!GameState.currentStack) {
+    if(GameState.currentStack === null) {
       $scope.message = "You must select at least one coin.";
       return;
     }
@@ -160,13 +179,13 @@ angular.module('starter.controllers', [])
       left+= GameState.stacks[i].coins;
     
     if(left <= 1) {
-      alert('Game Over!');
-
       GameState.setup();
+      $scope.newGameChoiceModal.show();
+    //  $scope.setupOptions(); 
     }
 
   };
-  
+
   function forceSmallestStack() { 
     var target = 0;
 
