@@ -36,6 +36,10 @@ angular.module('starter.controllers', [])
     name: 'redistribute coins',
     action: addOrRedistributeCoins(),
     type: 'trap'
+  }, {
+    name: 'absolutely nothing',
+    action: function() {},
+    type: 'active'
   }];
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
 
@@ -68,7 +72,25 @@ angular.module('starter.controllers', [])
     return ret;
   }
 
-  $scope.powerups = groupBy(powerups, 4);
+  function contains(arr, val) {
+    var cont = false;
+    arr.forEach(function(e) { if(val === e) cont = true });
+    return cont;
+  }
+  
+  function drawCards() {
+    var arr = [];
+    var rand;
+    while(arr.length < 3){
+      rand = randFromZeroToX(powerups.length);
+      if(!contains(arr, rand)) {
+        arr.push(rand);
+      }
+    }
+    return arr.map(function(e) { return powerups[e]; });
+  }
+
+  $scope.powerups = drawCards();
 
   $scope.$watch(function() { return GameState.update }, function() {
     $scope.stacks = GameState.stacks;
@@ -78,6 +100,7 @@ angular.module('starter.controllers', [])
     $scope.powerup = null;
     $scope.selectedPowerupName = null;
     $scope.selectedPowerup = null;
+    $scope.powerups = drawCards();
   });
 
   $scope.$watch(function() { return GameState.games }, function() {
@@ -238,7 +261,7 @@ angular.module('starter.controllers', [])
       }
         
       while(store > 0){ 
-        var pos = Math.floor((Math.random()*GameState.stacks.length));
+        var pos = randFromZeroToX(GameState.stacks.length);
         
         GameState.stacks[pos].coins++;
         store--; 
@@ -247,6 +270,9 @@ angular.module('starter.controllers', [])
     } 
   };
 
+  function randFromZeroToX(x) {
+    return Math.floor((Math.random()*x))
+  }
   $scope.doReset = function(maybe) {
 
     $scope.modal.hide();
