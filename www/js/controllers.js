@@ -48,7 +48,7 @@ angular.module('starter.controllers', [])
   }
 
   function skipNextTurn() {
-    GameState.resetTurn();
+    GameState.skipped = true;
   }
 
   $scope.setPowerup = function(powerup) {
