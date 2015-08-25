@@ -203,7 +203,11 @@ angular.module('starter.controllers', [])
     
     if(left <= 1) {
       $scope.newGameChoiceModal.show();
-      GameState.setup();
+      GameState.setup($scope.gameInit);
+      $scope.powerup = null;
+      $scope.selectedPowerupName = null;
+      $scope.selectedPowerup = null;
+      $scope.message = '';
     //  $scope.setupOptions(); 
     }
 
