@@ -36,6 +36,10 @@ angular.module('starter.controllers', [])
     name: 'redistribute coins',
     action: addOrRedistributeCoins(),
     type: 'trap'
+  },  {
+   name: 'randomly distribute selected coins',
+   action: addSelectedRandomly,
+   type: 'trap'
   }, {
     name: 'absolutely nothing',
     action: function() {},
@@ -147,12 +151,6 @@ angular.module('starter.controllers', [])
     $scope.newGameChoiceModal = modal;
   }); 
   
-  // $ionicModal.fromTemplateUrl('templates/menu.html', {
- //   scope: $scope
- // }).then(function(modal) {
- //   $scope.menuModal = modal;
- /// });
-
   $scope.findGame = function () {
     $scope.gamesModal.show();
   }
@@ -273,6 +271,16 @@ angular.module('starter.controllers', [])
     
     } 
   };
+
+  function addSelectedRandomly() {
+    GameState.stacks[stackNo].coins += GameState.stacks[stackNo].marked; 
+    for(var i = 0; i <= GameState.stacks[stackNo].marked; i++) {
+      var pos = randFromZeroToX(GameState.stacks.length);
+      GameState.stacks[pos].coins++; 
+    } 
+  } 
+
+
 
   function randFromZeroToX(x) {
     return Math.floor((Math.random()*x))
