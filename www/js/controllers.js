@@ -6,46 +6,66 @@ angular.module('starter.controllers', [])
 })
 
 .controller('GameCtrl', function($scope, $ionicModal, GameState) {
-
+  
   var pick = new Howl({ urls: ['sounds/pick_3.ogg'] });
   var take = new Howl({ urls: ['sounds/take_1.ogg'] });
 
   var noop = function(){};
 
-  var powerups = [{
-    name: 'add 3',
-    action: addOrRedistributeCoins(3),
-    type: 'trap'
-  }, {
-    name: 'take from smallest',
-    action: forceSmallestStack,
-    type: 'trap'
-  }, {
-    name: 'skip next turn',
-    action: skipNextTurn,
-    type: 'trap'
-  }, {
-    name: 'take from largest',
-    action: forceLargestStack,
-    type: 'trap'
-  }, {
-    name: 'only one coin',
-    action: takeOneCoinOnly,
-    type: 'trap'
-  }, {
-    name: 'redistribute coins',
-    action: addOrRedistributeCoins(),
-    type: 'trap'
-  },  {
-   name: 'randomly distribute selected coins',
-   action: addSelectedRandomly,
-   type: 'trap'
-  }, {
+  var powerups = [
+//  {
+//    name: 'add 3',
+//    action: addOrRedistributeCoins(3),
+//    type: 'trap'
+//  }, {
+//    name: 'take from smallest',
+//    action: forceSmallestStack,
+//    type: 'trap'
+//  }, {
+//    name: 'skip next turn',
+//    action: skipNextTurn,
+//    type: 'trap'
+//  }, {
+//    name: 'take from largest',
+//    action: forceLargestStack,
+//    type: 'trap'
+//  }, {
+//    name: 'only one coin',
+//    action: takeOneCoinOnly,
+//    type: 'trap'
+//  }, {
+//    name: 'redistribute coins',
+//    action: addOrRedistributeCoins(),
+//    type: 'trap'
+//  }, {
+//    name: 'randomly distribute selected coins',
+//    action: addSelectedRandomly,
+//    type: 'trap'
+//  }, 
+  {
     name: 'absolutely nothing',
     action: function() {},
     type: 'active'
+  }, {
+    name: 'take an extra coin',
+    action: takeExtraCoin,
+    type: 'trap'
+  },  {
+    name: 'take randomly',
+    action: takeCoinsRandomly,
+    type: 'trap'
+  }, {
+    name: 'consolidate the stacks',
+    action: consolidateStacks,
+    type: 'trap'
   }];
+
+  $scope.allpowerups = powerups;
+ 
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
+  
+  $scope.optionselection = $scope.allpowerups[0];
+
 
   function takeOneCoinOnly() {
     GameState.stacks[GameState.currentStack].marked = 1;
@@ -63,7 +83,7 @@ angular.module('starter.controllers', [])
 
   $scope.powerupClass = function(name) {
     var css = 'powerup w3-card-4';
-    if($scope.selectedPowerupName === name) css += ' grayscale';
+    if($scope.selectedPowerup && ($scope.selectedPowerup.name === name)) css += ' grayscale';
     return css;
   };
 
@@ -179,13 +199,16 @@ angular.module('starter.controllers', [])
     i = parseInt(i) || 0;
     return new Array(i);
   }
+  $scope.test = function() {
+    console.log($scope.optionselection);
+  };
 
   $scope.next = function() {
     if(GameState.currentStack === null) {
       $scope.message = "You must select at least one coin.";
       return;
     }
-    if(!$scope.powerup) {
+    if(!$scope.selectedPowerup) {
       $scope.message = "No powerup selected";
       return; 
     }
@@ -273,14 +296,47 @@ angular.module('starter.controllers', [])
   };
 
   function addSelectedRandomly() {
-    GameState.stacks[stackNo].coins += GameState.stacks[stackNo].marked; 
-    for(var i = 0; i <= GameState.stacks[stackNo].marked; i++) {
+    
+    for(var i = 0; i < GameState.stacks[GameState.currentStack].marked; i++) {
+      
       var pos = randFromZeroToX(GameState.stacks.length);
       GameState.stacks[pos].coins++; 
+    
+    };
+
+  };
+
+  function takeExtraCoin() {
+
+    GameState.stacks[GameState.currentStack].marked += 1;
+  
+  };
+  
+  function takeCoinsRandomly() {
+   
+    for(var i = 0; i < GameState.stacks[GameState.currentStack].marked ; i++) { 
+      GameState.stacks[randFromZeroToX(GameState.stacks.length)].coins--;
     } 
+
+  };
+
+  function consolidateStacks() {
+    
+    var totalCoins = 0;
+    var store = GameState.stacks[GameState.currentStack].marked;
+
+    for( var i = 0; i < GameState.stacks.length; i++) {
+
+      totalCoins += GameState.stacks[i].coins;
+      GameState.stacks[i].coins = 0;
+    
+    }
+    
+    var pos = Math.floor(randFromZeroToX(GameState.stacks.length))
+    
+    GameState.stacks[pos].coins = totalCoins - store;
+
   } 
-
-
 
   function randFromZeroToX(x) {
     return Math.floor((Math.random()*x))
