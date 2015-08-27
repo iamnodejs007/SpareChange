@@ -48,7 +48,7 @@ angular.module('starter.services', [/* 'btford.socket-io' */])
       for(var i = 0; i < GameState.numberOfStacks; ++i)
         GameState.stacks[i] = {
           marked: 0,
-          coins: parseInt(GameState.coinsPerStack[i])
+          coins: GameState.coinsPerStack[i]
         };
       GameState.update++;
     };

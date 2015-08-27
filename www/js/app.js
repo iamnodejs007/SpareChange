@@ -6,6 +6,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
+
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -42,5 +44,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/game');
-});
+})
 
+.directive('convertToNumber', function() {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {                
+            ngModel.$parsers.push(function(val) {                    
+                return parseInt(val, 10);
+            });
+            ngModel.$formatters.push(function (val) {                    
+                return '' + val;
+            });
+        }
+    };
+});

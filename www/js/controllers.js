@@ -198,7 +198,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.range = function(i) {
-    i = parseInt(i) || 0;
+    //i = parseInt(i) || 0;
     return new Array(i);
   }
   $scope.test = function() {
@@ -371,7 +371,9 @@ angular.module('starter.controllers', [])
       return;
     }
     if(!GameState.takeCoin(stackNo)) {
-      $scope.reset(stackNo);
+      //$scope.reset(stackNo);
+      console.log("test");
+      $scope.message = 'You can only take coins from a single stack'; 
     } else {
       // Sound effect
       pick.play();
