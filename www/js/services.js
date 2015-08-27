@@ -10,7 +10,8 @@ angular.module('starter.services', [/* 'btford.socket-io' */])
         trapPowerup: null,
         player: true, // true: player 1, false: player 2
         alternativeStack: null,
-        skipped: false
+        skipped: false,
+        frozenStack: []
       };
     }
     var GameState = defaultGameState();

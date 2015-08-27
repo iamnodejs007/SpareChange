@@ -60,6 +60,10 @@ angular.module('starter.controllers', [])
     name: 'add a coin to the stack',
     action: addACoin,
     type: 'trap'
+  }, {
+    name: 'freeze stack',
+    action: freezeStack,
+    type: 'trap'
   }];
 
   $scope.allpowerups = powerups;
@@ -68,6 +72,11 @@ angular.module('starter.controllers', [])
   
   $scope.optionselection = $scope.allpowerups[0];
 
+  function freezeStack() {
+    if(GameState.frozenStack[(!GameState.player).toString()] === GameState.currentStack) {
+      skipNextTurn();
+    }
+  }
 
   function takeOneCoinOnly() {
     GameState.stacks[GameState.currentStack].marked = 1;
@@ -77,10 +86,19 @@ angular.module('starter.controllers', [])
     GameState.skipped = true;
   }
 
+  $scope.waitingForSelection = false;
+
   $scope.setPowerup = function(powerup) {
     $scope.powerup = powerup.action;
     $scope.selectedPowerup = powerup;
     $scope.selectedPowerupName = powerup.name;
+
+    if(powerup.name === 'freeze stack') {
+      $scope.message = 'Please select which stack to freeze. Tap again to confirm.';
+      $scope.waitingForSelection = true;
+    } else if(powerup.name === 'take from multiple stacks') {
+      // TODO
+    }
   };
 
   $scope.powerupClass = function(name) {
@@ -361,7 +379,35 @@ angular.module('starter.controllers', [])
 
   $scope.message = '';
 
+  var once = false;
+  var selected = null;
   $scope.takeCoin = function(stackNo) {
+    if($scope.waitingForSelection) {
+      // Not actually taking coin but selecting a stack for something
+      
+      if($scope.selectedPowerup.name === 'freeze stack') {
+        if(once) {
+          if(selected !== stackNo) {
+            selected = stackNo;
+            $scope.message = 'You have selected stack ' + stackNo + '. Tap again to confirm';
+            return;
+          }
+          GameState.frozenStack[GameState.player.toString()] = stackNo;
+          $scope.message = '';
+          $scope.waitingForSelection = false;
+          once = false;
+          selected = null;
+        } else {
+          selected = stackNo;
+          $scope.message = 'You have selected stack ' + stackNo + '. Tap again to confirm';
+          once = true;
+        }
+      } else if($scope.selectedPowerup.name === 'take from multiple stacks') {
+        // TODO
+      }
+
+      return;
+    }
     if(GameState.stacks[stackNo].marked == GameState.stacks[stackNo].coins) {
       // If the player has already selected all the coins in the stack, can't take more
       return;
