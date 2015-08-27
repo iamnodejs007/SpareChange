@@ -371,8 +371,6 @@ angular.module('starter.controllers', [])
       return;
     }
     if(!GameState.takeCoin(stackNo)) {
-      //$scope.reset(stackNo);
-      console.log("test");
       $scope.message = 'You can only take coins from a single stack'; 
     } else {
       // Sound effect
