@@ -48,13 +48,17 @@ angular.module('starter.controllers', [])
     name: 'take an extra coin',
     action: takeExtraCoin,
     type: 'trap'
-  },  {
+  }, {
     name: 'take randomly',
     action: takeCoinsRandomly,
     type: 'trap'
   }, {
     name: 'consolidate the stacks',
     action: consolidateStacks,
+    type: 'trap'
+  }, {
+    name: 'add a coin to the stack',
+    action: addACoin,
     type: 'trap'
   }];
 
@@ -331,7 +335,10 @@ angular.module('starter.controllers', [])
     GameState.stacks[pos].coins = totalCoins - store;
 
   } 
-
+  
+  function addACoin() {
+    GameState.stacks[GameState.currentStack].coins++;
+  }
   function randFromZeroToX(x) {
     return Math.floor((Math.random()*x))
   }
