@@ -13,35 +13,35 @@ angular.module('starter.controllers', [])
   var noop = function(){};
 
   var powerups = [
-//  {
-//    name: 'add 3',
-//    action: addOrRedistributeCoins(3),
-//    type: 'trap'
-//  }, {
-//    name: 'take from smallest',
-//    action: forceSmallestStack,
-//    type: 'trap'
-//  }, {
-//    name: 'skip next turn',
-//    action: skipNextTurn,
-//    type: 'trap'
-//  }, {
-//    name: 'take from largest',
-//    action: forceLargestStack,
-//    type: 'trap'
-//  }, {
-//    name: 'only one coin',
-//    action: takeOneCoinOnly,
-//    type: 'trap'
-//  }, {
-//    name: 'redistribute coins',
-//    action: addOrRedistributeCoins(),
-//    type: 'trap'
-//  }, {
-//    name: 'randomly distribute selected coins',
-//    action: addSelectedRandomly,
-//    type: 'trap'
-//  }, 
+  {
+    name: 'add 3',
+    action: addOrRedistributeCoins(3),
+    type: 'trap'
+  }, {
+    name: 'take from smallest',
+    action: forceSmallestStack,
+    type: 'trap'
+  }, {
+    name: 'skip next turn',
+    action: skipNextTurn,
+    type: 'trap'
+  }, {
+    name: 'take from largest',
+    action: forceLargestStack,
+    type: 'trap'
+  }, {
+    name: 'only one coin',
+    action: takeOneCoinOnly,
+    type: 'trap'
+  }, {
+    name: 'redistribute coins',
+    action: addOrRedistributeCoins(),
+    type: 'trap'
+  }, {
+    name: 'randomly distribute selected coins',
+    action: addSelectedRandomly,
+    type: 'trap'
+  }, 
   {
     name: 'absolutely nothing',
     action: function() {},
@@ -296,20 +296,16 @@ angular.module('starter.controllers', [])
   };
 
   function addSelectedRandomly() {
-    
+  
     for(var i = 0; i < GameState.stacks[GameState.currentStack].marked; i++) {
-      
       var pos = randFromZeroToX(GameState.stacks.length);
       GameState.stacks[pos].coins++; 
-    
     };
 
   };
 
   function takeExtraCoin() {
-
     GameState.stacks[GameState.currentStack].marked += 1;
-  
   };
   
   function takeCoinsRandomly() {
@@ -328,10 +324,8 @@ angular.module('starter.controllers', [])
     var store = GameState.stacks[GameState.currentStack].marked;
 
     for( var i = 0; i < GameState.stacks.length; i++) {
-
       totalCoins += GameState.stacks[i].coins;
       GameState.stacks[i].coins = 0;
-    
     }
     
     var pos = Math.floor(randFromZeroToX(GameState.stacks.length))
