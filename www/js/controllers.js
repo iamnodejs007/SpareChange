@@ -313,10 +313,12 @@ angular.module('starter.controllers', [])
   };
   
   function takeCoinsRandomly() {
-   
+    
     for(var i = 0; i < GameState.stacks[GameState.currentStack].marked ; i++) { 
       GameState.stacks[randFromZeroToX(GameState.stacks.length)].coins--;
     } 
+
+    GameState.stacks[GameState.currentStack].marked = 0;
 
   };
 
