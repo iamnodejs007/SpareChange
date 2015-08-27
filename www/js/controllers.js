@@ -93,6 +93,7 @@ angular.module('starter.controllers', [])
     $scope.selectedPowerup = powerup;
     $scope.selectedPowerupName = powerup.name;
 
+    $scope.message = '';
     if(powerup.name === 'freeze stack') {
       $scope.message = 'Please select which stack to freeze. Tap again to confirm.';
       $scope.waitingForSelection = true;
