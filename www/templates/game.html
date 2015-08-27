@@ -8,10 +8,21 @@
         <div class="col" ng-repeat="stack in stacks" on-tap="takeCoin($index)">
           <img ng-repeat="coin in range(stack.coins) track by $index" ng-src="img/coin.png" ng-class="getCss($parent.$index, $index)" ng-style="getStyle($parent.$index, $index)"></img>
         </div>
+     
+        <div>
+          <label style="background-color:white">Powerups</label>
+          <select ng-options="powerup.name for powerup in allpowerups" ng-model="optionselection">
+          </select>
+        </div>
       </div>
 
       <div class="row" style="position:relative; top: 200px;">
         <button on-tap="next()">Take Coins</button>
+        <button on-tap="doReset(true)">Reset your stack</button>>
+      </div>
+
+      <div class="row" style="position:relative; top: 200px;">
+        <button on-tap="test()">name</button>
       </div>
 
       <div class="row" style="position:relative; top: 220px;">
