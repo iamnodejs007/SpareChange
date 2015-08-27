@@ -12,8 +12,7 @@ angular.module('starter.controllers', [])
 
   var noop = function(){};
 
-  var powerups = [
-  {
+  var powerups = [{
     name: 'add 3',
     action: addOrRedistributeCoins(3),
     type: 'trap'
@@ -41,8 +40,7 @@ angular.module('starter.controllers', [])
     name: 'randomly distribute selected coins',
     action: addSelectedRandomly,
     type: 'trap'
-  }, 
-  {
+  }, {
     name: 'absolutely nothing',
     action: function() {},
     type: 'active'
