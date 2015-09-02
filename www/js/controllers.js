@@ -13,57 +13,77 @@ angular.module('starter.controllers', [])
   var noop = function(){};
 
   var powerups = [{
-    name: 'add 3',
+    name: 'Add 3',
     action: addOrRedistributeCoins(3),
-    type: 'trap'
+    type: 'trap',
+    description: 'Before your opponent takes their selected coins, 3 will be added randomly ' + 
+                 'across the stacks. This includes the stacks with zero coins.'
   }, {
-    name: 'take from smallest',
+    name: 'Force Smallest',
     action: forceSmallestStack,
-    type: 'trap'
+    type: 'trap',
+    description: 'Your opponent will be forced to take their coins from the smallest stack, ' +
+                 'instead of the stack they selected.'
   }, {
-    name: 'skip next turn',
+    name: 'Skip Turn',
     action: skipNextTurn,
-    type: 'trap'
+    type: 'trap',
+    description: 'Your opponent  will be forced to skip their turn.'
   }, {
-    name: 'take from largest',
+    name: 'Force Largest',
     action: forceLargestStack,
-    type: 'trap'
+    type: 'trap',
+    description: 'Your opponent will be forced to take their coins from the largest stack, ' +
+                 'instead of the stack they selected. '
   }, {
-    name: 'only one coin',
+    name: 'Take One',
     action: takeOneCoinOnly,
-    type: 'trap'
+    type: 'trap',
+    description: 'Your opponent will only take a single coin instead of the amount they selected.'
   }, {
-    name: 'redistribute coins',
+    name: 'Redistribute Coins',
     action: addOrRedistributeCoins(),
-    type: 'trap'
+    type: 'trap',
+    description: 'All the coins will be redistributed across the stacks. Your opponent will ' +
+                 'then take the marked coins from what ends up in the stack they selected.'
   }, {
-    name: 'randomly distribute selected coins',
+    name: 'Randomly Distribute Selected Coins',
     action: addSelectedRandomly,
-    type: 'trap'
+    type: 'trap',
+    description: 'The coins your opponent selects will be randomly added across the stacks, ' +
+                 'instead of being taken.'
   }, {
     name: 'absolutely nothing',
     action: function() {},
-    type: 'active'
+    type: 'active',
+    description: 'NOOOOOOOOOOOOOPE'
   }, {
-    name: 'take an extra coin',
+    name: 'Take Extra Coin',
     action: takeExtraCoin,
-    type: 'trap'
+    type: 'trap',
+    description: 'Your opponent will take an extra coin along with what they meant to.'
   }, {
-    name: 'take randomly',
+    name: 'Take Randomly',
     action: takeCoinsRandomly,
-    type: 'trap'
+    type: 'trap',
+    description: 'The number of coins your opponent marked will be taken randomly from all ' +
+                 'of the stacks, instead of from the single stack that they select.'
   }, {
-    name: 'consolidate the stacks',
+    name: 'Consolidate Stacks',
     action: consolidateStacks,
-    type: 'trap'
+    type: 'trap',
+    description: 'All the coins will be combined into a single stack.'
   }, {
-    name: 'add a coin to the stack',
+    name: 'Add Extra Coin',
     action: addACoin,
-    type: 'trap'
+    type: 'trap',
+    description: 'Add a coin to the stack your opponent chooses to take coins from.'
   }, {
     name: 'freeze stack',
     action: freezeStack,
-    type: 'trap'
+    type: 'trap',
+    description: 'Select a stack. Your opponent will not be able to take coins from that stack next ' +
+                 'turn. your opponent will not know which stack you selected.'
   }];
 
   $scope.allpowerups = powerups;
@@ -165,7 +185,6 @@ angular.module('starter.controllers', [])
   }
 
   $scope.gameInit = {
-    numberOfStacks: 0,
     coinsPerStack: []
   };
 
@@ -201,6 +220,9 @@ angular.module('starter.controllers', [])
   };
 
   $scope.newGame = function() {
+    // Because convert-to-number breaks the display
+    $scope.gameInit.numberOfStacks = parseInt($scope.gameInit.numberOfStacks, 10);
+
     if($scope.gameInit.numberOfStacks < 3 || $scope.gameInit.numberOfStacks > 10) {
       $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 3 to 10";   
     } else {
