@@ -217,11 +217,13 @@ angular.module('starter.controllers', [])
     $scope.powerupDescriptionModal = modal;
   });
   
-  $scope.showPowerupDescription = function(check) {
-    if(check) 
-    $scope.powerupDescriptionModal.show();
-    if(!check)
-    $scope.powerupDescriptionModal.hide(); 
+  $scope.togglePowerupDescription = function(powerup, check) {
+    $scope.powerupToDescribe = powerup;
+    if(check) { 
+      $scope.powerupDescriptionModal.show();
+    } else {
+      $scope.powerupDescriptionModal.hide(); 
+    }
   };
 
   $scope.findGame = function () {
