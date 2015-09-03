@@ -1,0 +1,12 @@
+<div class="modal">
+  <ion-header-bar>
+  <!-- $scope.selectedPowerup will show the correct selction -->
+  <h1 class="title">{{ selectedPowerup.name }}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="showPowerupDescription(false)">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div>{{ selectedPowerup.description }}</div>
+  </ion-content>
+</div>
