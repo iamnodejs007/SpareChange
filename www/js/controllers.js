@@ -209,11 +209,24 @@ angular.module('starter.controllers', [])
     scope: $scope
   }).then(function(modal) {
     $scope.newGameChoiceModal = modal;
-  }); 
+  });
+
+  $ionicModal.fromTemplateUrl('templates/powerupDescription.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.powerupDescriptionModal = modal;
+  });
   
+  $scope.showPowerupDescription = function(check) {
+    if(check) 
+    $scope.powerupDescriptionModal.show();
+    if(!check)
+    $scope.powerupDescriptionModal.hide(); 
+  };
+
   $scope.findGame = function () {
     $scope.gamesModal.show();
-  }
+  };
 
   $scope.closeGamesList = function() {
     $scope.gamesModal.hide();

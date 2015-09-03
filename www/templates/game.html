@@ -26,20 +26,21 @@
       </div>-->
 
       <div class="row" style="position:relative; top: 220px;">
-        <div style="background-color: white;color: red">{{message}}</div>
+        <div style="background-color: white;color: red">{{ message }}</div>
       </div>
 
       <div class="row" style="position:relative; top: 250px;">
         <div class="col" ng-repeat="powerup in powerups">
-          <div ng-class="powerupClass(powerup.name)" ng-click="setPowerup(powerup)">{{powerup.name}}</div>
+          <div ng-class="powerupClass(powerup.name)" ng-click="setPowerup(powerup)">{{ powerup.name }}
+            <div style="position:absolute;bottom:0;padding-left:10px;padding-bottom:10px;">
+              <i ng-click="showPowerupDescription(true)" class="icon ion-information"></i>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="row" style="position:relative; top: 260px;">
-          <div style="background-color: white; min-height: 100px;">{{ (selectedPowerup && selectedPowerup.description) || '' }}</div> 
-      </div>
-
+      
     </div>
+
     <div ng-show="!stacks || (stacks.length === 0)">
       <br>
       <center><button on-tap="findGame()">Find Game</button></center>
