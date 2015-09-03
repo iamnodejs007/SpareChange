@@ -32,9 +32,13 @@
       <div class="row" style="position:relative; top: 250px;">
         <div class="col" ng-repeat="powerup in powerups">
           <div ng-class="powerupClass(powerup.name)" ng-click="setPowerup(powerup)">{{powerup.name}}</div>
-          <div style="background-color: white; min-height: 100px;">{{ powerup.description }}</div> 
         </div>
       </div>
+
+      <div class="row" style="position:relative; top: 260px;">
+          <div style="background-color: white; min-height: 100px;">{{ (selectedPowerup && selectedPowerup.description) || '' }}</div> 
+      </div>
+
     </div>
     <div ng-show="!stacks || (stacks.length === 0)">
       <br>
