@@ -87,6 +87,8 @@ angular.module('starter.controllers', [])
   }];
 
   $scope.allpowerups = powerups;
+
+  $scope.state = 'mainMenu';
  
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
   
@@ -237,7 +239,8 @@ angular.module('starter.controllers', [])
   };
 
   $scope.findGame = function () {
-    $scope.gamesModal.show();
+    $scope.state = 'createGame';
+    //$scope.gamesModal.show();
   };
 
   $scope.closeGamesList = function() {
@@ -245,13 +248,14 @@ angular.module('starter.controllers', [])
   };
 
   $scope.newGame = function() {
+    $scope.state = 'game';
     // Because convert-to-number breaks the display
     $scope.gameInit.numberOfStacks = parseInt($scope.gameInit.numberOfStacks, 10);
 
-    if($scope.gameInit.numberOfStacks < 3 || $scope.gameInit.numberOfStacks > 10) {
-      $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 3 to 10";   
+    if($scope.gameInit.numberOfStacks > 10) {
+      $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 1 to 10";   
     } else {
-      $scope.optionsModal.hide();
+      //$scope.optionsModal.hide();
       GameState.newGame();
       GameState.setup($scope.gameInit);
     };

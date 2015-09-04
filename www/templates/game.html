@@ -3,7 +3,7 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header board">
-    <div ng-show="state == 'createGame'">
+    <div ng-show="state === 'createGame'">
       <div class="list-inset" style="background-color:transparent !important;">
         <label><div style="background-image: url('img/number_of_stacks.png'); width:232px; height:16px;"></div></label>
         <div>
@@ -15,16 +15,19 @@
             </div>
           </div>
        
-          <div class="row" style="position:absolute; top: 210px;">
+          <div class="row" style="height: 150px">
+          </div>
+
+          <div class="row">
             <div class="col" ng-repeat="stack in range(gameInit.numberOfStacks) track by $index">
-              <div style="background-image: url('img/up_arrow.png'); width:37px; height:19px;position:relative;left:-5px" on-tap="incStack($index)"></div>
-              <div style="background-image: url('img/numberwang.png'); width:40px; height:40px;position:relative;left:-5px"><div class="container4"><p>{{ gameInit.coinsPerStack[$index] }}</p></div></div>
-              <div style="background-image: url('img/down_arrow.png'); width:37px; height:19px;position:relative;left:-5px" on-tap="decStack($index)"></div>
+              <div style="background-image: url('img/up_arrow.png'); width:37px; height:19px;" on-tap="incStack($index)"></div>
+              <div style="background-image: url('img/numberwang.png'); width:40px; height:40px;position:relative;top:1px;"><div class="container4"><p>{{ gameInit.coinsPerStack[$index] }}</p></div></div>
+              <div style="background-image: url('img/down_arrow.png'); width:37px; height:19px;" on-tap="decStack($index)"></div>
             </div>
           </div>
         
           <div class="row" style="top: 300px;">
-            <center><div style="background-image: url('img/create_game.png'); width:250px; height:70px;" on-tap="findGame()"></div></center>
+            <center><div style="background-image: url('img/create_game.png'); width:250px; height:70px;" on-tap="newGame()"></div></center>
           </div>
        
         </div>
@@ -38,17 +41,20 @@
         </div>
      
       </div>
+
+      <div class="row" style="height:200px">
+      </div>
   
-      <div class="row" style="position:relative; top: 200px;">
+      <div class="row">
         <button on-tap="next()">Take Coins</button>
         <button on-tap="doReset(true)">Reset your stack</button>
       </div>
   
-      <div class="row" style="position:relative; top: 220px;">
+      <div class="row">
         <div style="background-color: white;color: red">{{ message }}</div>
       </div>
   
-      <div class="row" style="position:relative; top: 250px;">
+      <div class="row">
         <div class="col" ng-repeat="powerup in powerups">
           <div ng-class="powerupClass(powerup.name)" on-tap="setPowerup(powerup)">{{ powerup.name }}
             <div style="position:absolute;bottom:0;padding-left:10px;padding-bottom:10px;" on-tap="togglePowerupDescription(powerup, true); $event.stopPropagation()">
@@ -60,7 +66,7 @@
       
     </div>
   
-    <div ng-show="!stacks || (stacks.length === 0)">
+    <div ng-show="state === 'mainMenu'">
       <br>
       <center><div style="background-image: url('img/title.png'); width:189px; height:108px;"></div></center>
       <center><div style="width:250px; height:70px;"</div></center>
