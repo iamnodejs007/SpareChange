@@ -3,6 +3,41 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header board">
+  <div ng-show="true || state == 'createGame'">
+    <div class="list-inset" style="background-color:transparent !important;">
+    <label><div style="background-image: url('img/number_of_stacks.png'); width:232px; height:16px;"></div></label>
+    <!-- think of non-intrusive design to inform as to min and max stack number-->
+    <div>
+      <input type='range' id='r1' class='tip fill fill-replace' 
+             min='1' max='6' ng-model="gameInit.numberOfStacks" type="number" ng-init="gameInit.numberOfStacks=3" convert-to-number style="width:100%" />
+      <div class="row" style="position:absolute; top: 110px;">
+        <div class="col" ng-repeat="stack in range(gameInit.numberOfStacks) track by $index">
+          <div ng-repeat="coin in range(gameInit.coinsPerStack[$index]) track by $index" ng-style="getStyle($parent.$index, $index)"><img src="img/coin.png" style="position:relative;left:-15px"></img></div>
+        </div>
+      </div>
+     
+      <div class="row" style="position:absolute; top: 180px;">
+        <div class="col" ng-repeat="stack in range(gameInit.numberOfStacks) track by $index">
+          <div style="background-image: url('img/up_arrow.png'); width:37px; height:19px;position:relative;left:-5px"></div>
+          <div style="background-image: url('img/numberwang.png'); width:40px; height:40px;position:relative;left:-5px"></div>
+          <div style="background-image: url('img/down_arrow.png'); width:37px; height:19px;position:relative;left:-5px"></div>
+        </div>
+      </div>
+     
+
+<!--        <div>
+          <span style="background-color: white; color: red;">{{ stacksValidationMessage }}</span>
+        </div>
+        <div class="col" ng-repeat="i in range(gameInit.numberOfStacks) track by $index">
+          <label>Number of coins in the stack</label>
+          <select ng-init="gameInit.coinsPerStack[$index] = $index+3" ng-options="val for val in [1,2,3,4,5,6,7,8,9,10]" ng-model="gameInit.coinsPerStack[$index]" convert-to-number>
+          </select>
+        </div>
+      </div>
+      <button ng-click="newGame()">Create a game</button>
+    </div>-->
+  </div>
+
     <div ng-show="stacks && (stacks.length > 0)">
       <div class="row" style="position:absolute; top: 100px;">
         <div class="col" ng-repeat="stack in stacks" on-tap="takeCoin($index)">
@@ -41,7 +76,7 @@
       
     </div>
 
-    <div ng-show="!stacks || (stacks.length === 0)">
+    <div ng-show="false && (!stacks || (stacks.length === 0))">
       <br>
       <center><div style="background-image: url('img/title.png'); width:189px; height:108px;"></div></center>
       <center><div style="width:250px; height:70px;"</div></center>

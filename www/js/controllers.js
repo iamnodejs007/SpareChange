@@ -478,14 +478,14 @@ angular.module('starter.controllers', [])
 
   $scope.getStyle = function(stack, coin) {
     var style = {
-      position: 'absolute'
+      position: 'absolute',
     }
 
     if(coin == 0) {
     } else if(coin == 1) {
-      style.top = '-4px';
+      style.top = '-0px';
     } else {
-      style.top = '-' + (14*(coin-1)+4) + 'px';
+      style.top = '-' + (10*(coin-1)) + 'px';
     }
 
     return style;
