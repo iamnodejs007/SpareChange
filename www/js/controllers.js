@@ -191,8 +191,14 @@ angular.module('starter.controllers', [])
   };
 
   $scope.toMenu = function () {
-    GameState.stacks = null;
-    GameState.update++;
+    $scope.state = 'mainMenu';
+    //GameState.stacks = null;
+    //GameState.update++;
+    $scope.newGameChoiceModal.hide();
+  }
+
+  $scope.rematch = function() {
+    $scope.state = 'createGame';
     $scope.newGameChoiceModal.hide();
   }
 
@@ -269,6 +275,10 @@ angular.module('starter.controllers', [])
 
   $scope.range = function(i) {
     //i = parseInt(i) || 0;
+    if(typeof i !== 'number') {
+     console.log(i, typeof i);
+     i = parseInt(i) || 0;
+    }
     return new Array(i);
   }
   $scope.test = function() {
