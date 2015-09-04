@@ -87,6 +87,8 @@ angular.module('starter.controllers', [])
   }];
 
   $scope.allpowerups = powerups;
+
+  $scope.state = 'mainMenu';
  
   //, 'get fucked', 'quit game', 'go to hell', 'things break', 'black hole', 'cry'];
   
@@ -105,6 +107,16 @@ angular.module('starter.controllers', [])
   function skipNextTurn() {
     GameState.skipped = true;
   }
+
+  $scope.incStack = function(index) {
+    if($scope.gameInit.coinsPerStack[index] == 10) return;
+    $scope.gameInit.coinsPerStack[index]++;
+  };
+
+  $scope.decStack = function(index) {
+    if($scope.gameInit.coinsPerStack[index] == 1) return;
+    $scope.gameInit.coinsPerStack[index]--;
+  };
 
   $scope.waitingForSelection = false;
 
@@ -179,8 +191,14 @@ angular.module('starter.controllers', [])
   };
 
   $scope.toMenu = function () {
-    GameState.stacks = null;
-    GameState.update++;
+    $scope.state = 'mainMenu';
+    //GameState.stacks = null;
+    //GameState.update++;
+    $scope.newGameChoiceModal.hide();
+  }
+
+  $scope.rematch = function() {
+    $scope.state = 'createGame';
     $scope.newGameChoiceModal.hide();
   }
 
@@ -217,15 +235,18 @@ angular.module('starter.controllers', [])
     $scope.powerupDescriptionModal = modal;
   });
   
-  $scope.showPowerupDescription = function(check) {
-    if(check) 
-    $scope.powerupDescriptionModal.show();
-    if(!check)
-    $scope.powerupDescriptionModal.hide(); 
+  $scope.togglePowerupDescription = function(powerup, check) {
+    $scope.powerupToDescribe = powerup;
+    if(check) { 
+      $scope.powerupDescriptionModal.show();
+    } else {
+      $scope.powerupDescriptionModal.hide(); 
+    }
   };
 
   $scope.findGame = function () {
-    $scope.gamesModal.show();
+    $scope.state = 'createGame';
+    //$scope.gamesModal.show();
   };
 
   $scope.closeGamesList = function() {
@@ -233,13 +254,14 @@ angular.module('starter.controllers', [])
   };
 
   $scope.newGame = function() {
+    $scope.state = 'game';
     // Because convert-to-number breaks the display
     $scope.gameInit.numberOfStacks = parseInt($scope.gameInit.numberOfStacks, 10);
 
-    if($scope.gameInit.numberOfStacks < 3 || $scope.gameInit.numberOfStacks > 10) {
-      $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 3 to 10";   
+    if($scope.gameInit.numberOfStacks > 10) {
+      $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 1 to 10";   
     } else {
-      $scope.optionsModal.hide();
+      //$scope.optionsModal.hide();
       GameState.newGame();
       GameState.setup($scope.gameInit);
     };
@@ -253,6 +275,10 @@ angular.module('starter.controllers', [])
 
   $scope.range = function(i) {
     //i = parseInt(i) || 0;
+    if(typeof i !== 'number') {
+     console.log(i, typeof i);
+     i = parseInt(i) || 0;
+    }
     return new Array(i);
   }
   $scope.test = function() {
@@ -476,14 +502,14 @@ angular.module('starter.controllers', [])
 
   $scope.getStyle = function(stack, coin) {
     var style = {
-      position: 'absolute'
+      position: 'absolute',
     }
 
     if(coin == 0) {
     } else if(coin == 1) {
-      style.top = '-4px';
+      style.top = '-0px';
     } else {
-      style.top = '-' + (14*(coin-1)+4) + 'px';
+      style.top = '-' + (10*(coin-1)) + 'px';
     }
 
     return style;

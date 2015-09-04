@@ -10,7 +10,15 @@
     <label>Number of coin stacks</label>
     <!-- think of non-intrusive design to inform as to min and max stack number-->
     <div>
-      <input data-ng-model="gameInit.numberOfStacks" type="number" ng-init="gameInit.numberOfStacks=3"></input>
+      <input type='range' id='r1' class='tip fill fill-replace' 
+             min='1' max='6' ng-model="gameInit.numberOfStacks" type="number" ng-init="gameInit.numberOfStacks=3" convert-to-number style="width:100%" />
+      <div class="row" style="position:absolute; top: 150px;">
+        <div class="col" ng-repeat="stack in range(gameInit.numberOfStacks) track by $index">
+          <img ng-repeat="coin in range(gameInit.coinsPerStack[$index]) track by $index" ng-src="img/coin.png" ng-style="getStyle($parent.$index, $index)"></img>
+        </div>
+      </div>
+     
+
         <div>
           <span style="background-color: white; color: red;">{{ stacksValidationMessage }}</span>
         </div>
