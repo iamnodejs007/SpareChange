@@ -18,9 +18,9 @@
      
       <div class="row" style="position:absolute; top: 180px;">
         <div class="col" ng-repeat="stack in range(gameInit.numberOfStacks) track by $index">
-          <div style="background-image: url('img/up_arrow.png'); width:37px; height:19px;position:relative;left:-5px"></div>
-          <div style="background-image: url('img/numberwang.png'); width:40px; height:40px;position:relative;left:-5px"></div>
-          <div style="background-image: url('img/down_arrow.png'); width:37px; height:19px;position:relative;left:-5px"></div>
+          <div style="background-image: url('img/up_arrow.png'); width:37px; height:19px;position:relative;left:-5px" on-tap="incStack($index)"></div>
+          <div style="background-image: url('img/numberwang.png'); width:40px; height:40px;position:relative;left:-5px"><div class="container4"><p>{{ gameInit.coinsPerStack[$index] }}</p></div></div>
+          <div style="background-image: url('img/down_arrow.png'); width:37px; height:19px;position:relative;left:-5px" on-tap="decStack($index)"></div>
         </div>
       </div>
      

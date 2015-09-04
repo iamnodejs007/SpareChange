@@ -106,6 +106,16 @@ angular.module('starter.controllers', [])
     GameState.skipped = true;
   }
 
+  $scope.incStack = function(index) {
+    if($scope.gameInit.coinsPerStack[index] == 10) return;
+    $scope.gameInit.coinsPerStack[index]++;
+  };
+
+  $scope.decStack = function(index) {
+    if($scope.gameInit.coinsPerStack[index] == 1) return;
+    $scope.gameInit.coinsPerStack[index]--;
+  };
+
   $scope.waitingForSelection = false;
 
   $scope.setPowerup = function(powerup) {
