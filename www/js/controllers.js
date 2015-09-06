@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('GameCtrl', function($scope, $ionicModal, GameState) {
+.controller('GameCtrl', function($scope, $ionicModal, GameState, $ionicPopup) {
   
   var pick = new Howl({ urls: ['sounds/pick_3.ogg'] });
   var take = new Howl({ urls: ['sounds/take_1.ogg'] });
@@ -234,14 +234,19 @@ angular.module('starter.controllers', [])
   }).then(function(modal) {
     $scope.powerupDescriptionModal = modal;
   });
+
   
-  $scope.togglePowerupDescription = function(powerup, check) {
+  
+  $scope.togglePowerupDescription = function(powerup) {
     $scope.powerupToDescribe = powerup;
-    if(check) { 
-      $scope.powerupDescriptionModal.show();
-    } else {
-      $scope.powerupDescriptionModal.hide(); 
-    }
+    $ionicPopup.show({
+      templateUrl: 'templates/powerupDescription.html',
+      title: powerup.name,
+      scope: $scope,
+      buttons: [
+       { text: 'Done' }
+      ]
+    });
   };
 
   $scope.findGame = function () {
@@ -258,13 +263,8 @@ angular.module('starter.controllers', [])
     // Because convert-to-number breaks the display
     $scope.gameInit.numberOfStacks = parseInt($scope.gameInit.numberOfStacks, 10);
 
-    if($scope.gameInit.numberOfStacks > 10) {
-      $scope.stacksValidationMessage = "Create a game with a number of stacks in the range of 1 to 10";   
-    } else {
-      //$scope.optionsModal.hide();
-      GameState.newGame();
-      GameState.setup($scope.gameInit);
-    };
+    GameState.newGame();
+    GameState.setup($scope.gameInit);
   };
   
   $scope.currentPlayer = 'Player One';
@@ -316,6 +316,7 @@ angular.module('starter.controllers', [])
       left+= GameState.stacks[i].coins;
     
     if(left <= 1) {
+      // TODO: new game menu
       $scope.newGameChoiceModal.show();
       GameState.setup($scope.gameInit);
       $scope.powerup = null;
