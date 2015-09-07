@@ -203,7 +203,8 @@ angular.module('starter.controllers', [])
   }
 
   $scope.gameInit = {
-    coinsPerStack: []
+    coinsPerStack: [],
+    doWalkthrough: false
   };
 
   $scope.closeOptions = function() {
