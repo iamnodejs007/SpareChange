@@ -83,7 +83,7 @@ angular.module('starter.controllers', [])
     action: freezeStack,
     type: 'trap',
     description: 'Select a stack. Your opponent will not be able to take coins from that stack next ' +
-                 'turn. your opponent will not know which stack you selected.'
+                 'turn. Your opponent will not know which stack you selected.'
   }];
 
   $scope.allpowerups = powerups;
