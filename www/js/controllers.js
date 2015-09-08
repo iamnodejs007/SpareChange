@@ -276,12 +276,10 @@ angular.module('starter.controllers', [])
   };
   
   $scope.showCards = function() {
-   $scope.cardButton = true;
    $scope.shownCards = true;
   }
 
   function hideCards() {
-    $scope.cardButton = false;
     $scope.shownCards = false;
   } 
 
