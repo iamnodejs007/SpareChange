@@ -51,7 +51,7 @@
     <!-- My attempt at adding player heading --> 
     <div class="row">
       <!--<h1 style="background: white;">{{ GameState.player ? "Player Two" : "Player One" }}</h2>-->
-      <h1>{{ currentPlayer }}</h1>  
+      <h1 style="margin-left:auto;margin-right:auto;color: white; text-align: center;">{{ currentPlayer }}</h1>  
     </div> 
 
       <div class="row" style="height:200px">
@@ -60,7 +60,7 @@
       <div class="row">
         <button on-tap="next()">Take Coins</button>
         <button on-tap="doReset(true)">Reset your stack</button>
-        <button ng-hide="cardButton" on-tap="showCards()">Show Cards</button>
+        <button ng-hide="cardButton" on-tap="showCards()">Draw Powerups</button>
       </div>
   
       <div class="row">
