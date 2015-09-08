@@ -75,8 +75,8 @@
       <div class="row" ng-show="shownCards">
         <div class="col" ng-repeat="powerup in powerups">
           <div ng-class="powerupClass(powerup.name)" on-tap="setPowerup(powerup)">{{ powerup.name }}
-            <div style="position:absolute;bottom:0;padding-left:10px;padding-bottom:10px;" on-tap="togglePowerupDescription(powerup, true); $event.stopPropagation()">
-              <i class="icon ion-information"></i>
+            <div style="position:absolute;bottom:10px;padding-left:12px;height:30px; width:30px;" on-tap="togglePowerupDescription(powerup, true); $event.stopPropagation()">
+              <i class="icon ion-information" style="vertical-align: bottom; margin-left:auto: margin-right: auto"></i>
             </div>
           </div>
         </div>
