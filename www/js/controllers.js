@@ -266,12 +266,24 @@ angular.module('starter.controllers', [])
       GameState.setup($scope.gameInit);
     };
   };
+  
+  $scope.currentPlayer = 'Player One';
 
   $scope.joinGame = function(gameNo) {
     $scope.gamesModal.hide();
     GameState.joinGame(gameNo);
     GameState.setup();
   };
+  
+  $scope.showCards = function() {
+   $scope.cardButton = true;
+   $scope.shownCards = true;
+  }
+
+  function hideCards() {
+    $scope.cardButton = false;
+    $scope.shownCards = false;
+  } 
 
   $scope.range = function(i) {
     //i = parseInt(i) || 0;
@@ -294,6 +306,7 @@ angular.module('starter.controllers', [])
       $scope.message = "No powerup selected";
       return; 
     }
+    
     // sound effect
     take.play();
     GameState.endTurn($scope.selectedPowerup, function(msg) {
@@ -313,7 +326,13 @@ angular.module('starter.controllers', [])
       $scope.message = '';
     //  $scope.setupOptions(); 
     }
-
+    hideCards();
+    
+    if(GameState.player === true) {
+      $scope.currentPlayer = 'Player One';
+    } else { 
+      $scope.currentPlayer = 'Player Two';
+    }
   };
 
   function forceSmallestStack() { 

@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-  
+    
     <div ng-show="stacks && (stacks.length > 0)">
       <div class="row" style="position:absolute; top: 100px;">
         <div class="col" ng-repeat="stack in stacks" on-tap="takeCoin($index)">
@@ -46,6 +46,13 @@
         </div>
      
       </div>
+      
+       
+    <!-- My attempt at adding player heading --> 
+    <div class="row">
+      <!--<h1 style="background: white;">{{ GameState.player ? "Player Two" : "Player One" }}</h2>-->
+      <h1>{{ currentPlayer }}</h1>  
+    </div> 
 
       <div class="row" style="height:200px">
       </div>
@@ -53,13 +60,14 @@
       <div class="row">
         <button on-tap="next()">Take Coins</button>
         <button on-tap="doReset(true)">Reset your stack</button>
+        <button ng-hide="cardButton" on-tap="showCards()">Show Cards</button>
       </div>
   
       <div class="row">
         <div style="background-color: white;color: red">{{ message }}</div>
       </div>
   
-      <div class="row">
+      <div class="row" ng-show="shownCards">
         <div class="col" ng-repeat="powerup in powerups">
           <div ng-class="powerupClass(powerup.name)" on-tap="setPowerup(powerup)">{{ powerup.name }}
             <div style="position:absolute;bottom:0;padding-left:10px;padding-bottom:10px;" on-tap="togglePowerupDescription(powerup, true); $event.stopPropagation()">
