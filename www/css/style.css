@@ -5,6 +5,11 @@
   src: url("../fonts/milk-mustache-bb.bold.ttf") format("truetype");   
 }
 
+@font-face {
+  font-family: "milkmustachereg";
+  src: url("../fonts/milk-mustache-bb.regular.ttf") format("truetype");   
+}
+
 div.container4 p {
     margin: 0;
     position: absolute;
