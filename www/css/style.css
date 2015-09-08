@@ -1,5 +1,10 @@
 /* Empty. Add your own CSS if you like */
 
+@font-face {
+  font-family: "milkmustache";
+  src: url("../fonts/milk-mustache-bb.bold.ttf") format("truetype");   
+}
+
 div.container4 p {
     margin: 0;
     position: absolute;

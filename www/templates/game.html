@@ -63,13 +63,13 @@
       </div>
   
       <div class="row">
-        <button on-tap="next()">Take Coins</button>
-        <button on-tap="doReset(true)">Reset your stack</button>
-        <button ng-hide="shownCards" on-tap="showCards()">Draw Powerups</button>
+        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustache'" on-tap="next()">Take Coins</div>
+        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustache'" on-tap="doReset(true)">Reset your stack</div>
+        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustache'" on-tap="showCards()">Draw Powerups</div>
       </div>
   
       <div class="row">
-        <div style="background-color: white;color: red">{{ message }}</div>
+        <div style="font-family: 'milkmustache'; background-color: white;color: red">{{ message }}</div>
       </div>
   
       <div class="row" ng-show="shownCards">
