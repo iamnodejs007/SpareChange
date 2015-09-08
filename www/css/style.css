@@ -1,5 +1,15 @@
 /* Empty. Add your own CSS if you like */
 
+@font-face {
+  font-family: "milkmustache";
+  src: url("../fonts/milk-mustache-bb.bold.ttf") format("truetype");   
+}
+
+@font-face {
+  font-family: "milkmustachereg";
+  src: url("../fonts/milk-mustache-bb.regular.ttf") format("truetype");   
+}
+
 div.container4 p {
     margin: 0;
     position: absolute;
@@ -44,3 +54,18 @@ img {
   background-image: url("../img/bg.jpg");
 }
 
+input[type="checkbox"] {
+    display:none;
+}
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:28px;
+    height:28px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background:url(../img/checkboxes.png) left top no-repeat;
+    cursor:pointer;
+}
+input[type="checkbox"]:checked + label span {
+    background:url(../img/checkboxes.png) -26px top no-repeat;
+}
