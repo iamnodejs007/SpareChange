@@ -267,6 +267,9 @@ angular.module('starter.controllers', [])
   };
 
   $scope.continueGame = function() {
+    if(window.StatusBar) {
+      window.StatusBar.hide();
+    }
     $scope.state = 'game';
   };
 
@@ -323,6 +326,24 @@ angular.module('starter.controllers', [])
 
   $scope.endScreen1 = function() {
     $scope.walkthroughs.screen2 = true;
+    GameState.currentStack = 1;
+    GameState.stacks[1].marked = 3;
+  };
+
+  $scope.endScreen2 = function() {
+    $scope.walkthroughs.screen3 = true;
+    GameState.currentStack = null;
+    GameState.stacks[1].marked = 0;
+  };
+
+  $scope.endScreen3 = function() {
+    $scope.walkthroughs.screen4 = true;
+    $scope.shownCards = true;
+  };
+
+  $scope.endScreen4 = function() {
+    $scope.shownCards = false;
+    $scope.powerups = drawCards();
   };
 
   $scope.toggleWalkthrough = function() {
