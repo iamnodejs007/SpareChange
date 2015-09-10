@@ -261,6 +261,21 @@ angular.module('starter.controllers', [])
 
   $scope.pauseMenu = function() {
     $scope.state = 'pauseMenu';
+    if(window.StatusBar) {
+      window.StatusBar.show();
+    }
+  };
+
+  $scope.continueGame = function() {
+    $scope.state = 'game';
+  };
+
+  $scope.abandonGame = function() {
+    $scope.state = 'mainMenu';
+  };
+
+  $scope.newFromPause = function() {
+    $scope.state = 'createGame';
   };
 
   $scope.newGame = function() {

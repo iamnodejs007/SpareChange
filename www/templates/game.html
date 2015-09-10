@@ -60,7 +60,22 @@
 
     <div ng-show="state === 'pauseMenu'">
       <div class="row">
-        <div style="background-image: url('img/create_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="newGame()"></div>
+        <div style="height:50px;"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/paused.png'); width:184px; height:43px;margin-left:auto;margin-right:auto;"></div>
+      </div>
+      <div class="row">
+        <div style="height:50px;"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/continue_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="continueGame()"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/new_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="newFromPause()"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/abandon_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="abandonGame()"></div>
       </div>
    </div>
     
@@ -73,7 +88,7 @@
      
       </div>
       
-      <div class="row" style="position:absolute; top: 65px;height:150px;" id="stacks">
+      <div class="row" style="position:absolute; top: 65px;height:150px;z-index:-1;" id="stacks">
       </div>
 
          
