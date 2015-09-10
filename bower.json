@@ -7,6 +7,9 @@
   "dependencies": {
     "angular-socket-io": "~0.7.0",
     "howler.js": "~1.1.26",
-    "ng-walkthrough": "https://github.com/kanatzidis/ng-walkthrough.git#~0.2.2"
+    "ng-walkthrough": "https://github.com/kanatzidis/ng-walkthrough.git#master"
+  },
+  "resolutions": {
+    "ng-walkthrough": "master"
   }
 }
