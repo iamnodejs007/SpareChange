@@ -32,6 +32,7 @@ angular.module('starter.services', [/* 'btford.socket-io' */])
     };
 
     GameState.resetTurn = function() {
+      if(GameState.currentStack === null) return;
       GameState.stacks[GameState.currentStack].marked = 0;
       GameState.currentStack = null;
       GameState.update++;

@@ -305,6 +305,18 @@ angular.module('starter.controllers', [])
       $scope.message = "No powerup selected";
       return; 
     }
+    if($scope.waitingForSelection) {
+      $ionicPopup.show({
+        template: 'You still need to select a stack to freeze!',
+        title: 'Select a stack',
+        scope: $scope,
+        buttons: [
+         { text: 'Done' }
+        ]
+      });
+      return;
+    }
+
     
     // sound effect
     take.play();
