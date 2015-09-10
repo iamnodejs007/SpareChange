@@ -6,14 +6,31 @@
     is_round=true
     focus-element-id="stacks"
     icon-padding-top="-15px"
-    main-caption="Welcome to Spare Change! The rules are easy. Each player takes turns taking coins from one of these three stacks."
-    is-active="walkthroughs.isActive">
+    on-walkthrough-hide="endScreen1()"
+    main-caption="Welcome to Spare Change! The rules are easy. Each player takes turns taking coins from one of these three stacks.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen1">
+  </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="stacks"
+    icon-padding-top="-15px"
+    main-caption="Mark coins to be taken by tapping on a stack. You can only mark coins in one stack at a time.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen2">
   </walkthrough>
 
 <!-- End walkthrough components -->
 
 <ion-view title="Tactics">
-  <ion-content class="board">
+  <ion-content class="board" scroll="false">
     <div ng-show="state === 'createGame'">
       <div class="list-inset" style="background-color:transparent !important;">
         <label><div style="background-image: url('img/number_of_stacks.png'); width:232px; height:16px;"></div></label>

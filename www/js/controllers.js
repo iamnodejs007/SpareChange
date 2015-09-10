@@ -319,11 +319,14 @@ angular.module('starter.controllers', [])
   };
 
   $scope.walkthroughs = {
-    isActive: false
+  };
+
+  $scope.endScreen1 = function() {
+    $scope.walkthroughs.screen2 = true;
   };
 
   $scope.toggleWalkthrough = function() {
-    $scope.walkthroughs.isActive = true;
+    $scope.walkthroughs.screen1 = true;
     //console.log($scope.walkthroughs.isActive);
   };
 
