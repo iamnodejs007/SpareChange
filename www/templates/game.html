@@ -5,11 +5,11 @@
 
     <walkthrough
       walkthrough-type="transparency"
-      icon="arrow"
+      icon="single_tap"
+      is_round=true
       focus-element-id="stacks"
       main-caption="This is some text"
-      is-active="isActive"
-      use-button=true>
+      is-active="walkthroughs.isActive">
     </walkthrough>
 
   <!-- End walkthrough components -->
@@ -66,7 +66,7 @@
      
       </div>
       
-      <div class="row" style="position:absolute; top: 55px;height:180px;" id="stacks">
+      <div class="row" style="position:absolute; top: 65px;height:150px;" id="stacks">
       </div>
 
          
@@ -83,6 +83,7 @@
         <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="next()">Take Coins</div>
         <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="doReset(true)">Reset your stack</div>
         <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="showCards()">Draw Powerups</div>
+        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="toggleWalkthrough()">Walkthrough</div>
       </div>
   
       <div class="row">

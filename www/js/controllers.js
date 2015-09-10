@@ -296,6 +296,15 @@ angular.module('starter.controllers', [])
     console.log($scope.optionselection);
   };
 
+  $scope.walkthroughs = {
+    isActive: false
+  };
+
+  $scope.toggleWalkthrough = function() {
+    $scope.walkthroughs.isActive = true;
+    //console.log($scope.walkthroughs.isActive);
+  };
+
   $scope.next = function() {
     if(GameState.currentStack === null) {
       $scope.message = "You must select at least one coin.";
