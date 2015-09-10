@@ -1,19 +1,19 @@
+<!-- Walkthrough components -->
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="stacks"
+    icon-padding-top="-15px"
+    main-caption="Welcome to Spare Change! The rules are easy. Each player takes turns taking coins from one of these three stacks."
+    is-active="walkthroughs.isActive">
+  </walkthrough>
+
+<!-- End walkthrough components -->
+
 <ion-view title="Tactics">
   <ion-content class="board">
-
-  <!-- Walkthrough components -->
-
-    <walkthrough
-      walkthrough-type="transparency"
-      icon="single_tap"
-      is_round=true
-      focus-element-id="stacks"
-      main-caption="This is some text"
-      is-active="walkthroughs.isActive">
-    </walkthrough>
-
-  <!-- End walkthrough components -->
-
     <div ng-show="state === 'createGame'">
       <div class="list-inset" style="background-color:transparent !important;">
         <label><div style="background-image: url('img/number_of_stacks.png'); width:232px; height:16px;"></div></label>
@@ -57,8 +57,15 @@
         </div>
       </div>
     </div>
+
+    <div ng-show="state === 'pauseMenu'">
+      <div class="row">
+        <div style="background-image: url('img/create_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="newGame()"></div>
+      </div>
+   </div>
     
-    <div ng-show="stacks && (stacks.length > 0)">
+    <div ng-show="state === 'game'">
+      <img class="menu-icon" src="img/menu_icon.png" id="menu-icon" on-tap="pauseMenu()"></img>
       <div class="row" style="position:absolute; top: 130px;">
         <div class="col" ng-repeat="stack in stacks" on-tap="takeCoin($index)">
           <img ng-repeat="coin in range(stack.coins) track by $index" ng-src="img/coin.png" ng-class="getCss($parent.$index, $index)" ng-style="getStyle($parent.$index, $index)"></img>

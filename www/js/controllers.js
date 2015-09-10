@@ -259,7 +259,14 @@ angular.module('starter.controllers', [])
     $scope.gamesModal.hide();
   };
 
+  $scope.pauseMenu = function() {
+    $scope.state = 'pauseMenu';
+  };
+
   $scope.newGame = function() {
+    if(window.StatusBar) {
+      window.StatusBar.hide();
+    }
     $scope.state = 'game';
     // Because convert-to-number breaks the display
     $scope.gameInit.numberOfStacks = parseInt($scope.gameInit.numberOfStacks, 10);
@@ -287,7 +294,7 @@ angular.module('starter.controllers', [])
   $scope.range = function(i) {
     //i = parseInt(i) || 0;
     if(typeof i !== 'number') {
-     console.log(i, typeof i);
+     //console.log(i, typeof i);
      i = parseInt(i) || 0;
     }
     return new Array(i);
