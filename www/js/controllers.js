@@ -385,12 +385,19 @@ angular.module('starter.controllers', [])
     
     if(left <= 1) {
       // TODO: new game menu
-      $scope.newGameChoiceModal.show();
-      GameState.setup($scope.gameInit);
-      $scope.powerup = null;
-      $scope.selectedPowerupName = null;
-      $scope.selectedPowerup = null;
-      $scope.message = '';
+      $ionicPopup.show({
+        template: $scope.currentPlayer + ' wins!',
+        title: 'Game Over!',
+        buttons: [
+          { text: 'Done' }
+        ]
+      }).then(function() {
+        $scope.state = 'gameOver';
+        $scope.powerup = null;
+        $scope.selectedPowerupName = null;
+        $scope.selectedPowerup = null;
+        $scope.message = '';
+      });
     //  $scope.setupOptions(); 
     }
     hideCards();
