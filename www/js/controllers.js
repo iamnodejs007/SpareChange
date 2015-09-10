@@ -392,13 +392,17 @@ angular.module('starter.controllers', [])
           { text: 'Done' }
         ]
       }).then(function() {
+        $scope.gameInit = {
+          coinsPerStack: [],
+          doWalkthrough: false
+        };
         $scope.state = 'gameOver';
         $scope.powerup = null;
         $scope.selectedPowerupName = null;
         $scope.selectedPowerup = null;
+        $scope.currentPlayer = 'Player One';
         $scope.message = '';
       });
-    //  $scope.setupOptions(); 
     }
     hideCards();
     
