@@ -171,6 +171,7 @@ angular.module('starter.controllers', [])
 
   $scope.$watch(function() { return GameState.update }, function() {
     $scope.stacks = GameState.stacks;
+    console.log($scope.stacks);
   });
 
   $scope.$watch(function() { return GameState.player }, function() {
@@ -203,7 +204,8 @@ angular.module('starter.controllers', [])
   }
 
   $scope.gameInit = {
-    coinsPerStack: [],
+    coinsPerStack: [3,4,5],
+    numberOfStacks: 3,
     doWalkthrough: false
   };
 
@@ -279,6 +281,7 @@ angular.module('starter.controllers', [])
 
   $scope.newFromPause = function() {
     $scope.state = 'createGame';
+    console.log($scope.gameInit);
   };
 
   $scope.newGame = function() {
@@ -329,6 +332,7 @@ angular.module('starter.controllers', [])
   $scope.endScreen1 = function() {
     $scope.walkthroughs.screen2 = true;
     GameState.currentStack = 1;
+    // TODO: this errors if there's only one stack
     GameState.stacks[1].marked = 3;
   };
 
@@ -400,7 +404,8 @@ angular.module('starter.controllers', [])
         ]
       }).then(function() {
         $scope.gameInit = {
-          coinsPerStack: [],
+          coinsPerStack: [3,4,5],
+          numberOfStacks: 3,
           doWalkthrough: false
         };
         $scope.state = 'gameOver';
