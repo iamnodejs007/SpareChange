@@ -56,6 +56,31 @@ Tap to continue."
     is-active="walkthroughs.screen4">
   </walkthrough>
 
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="takeButton"
+    on-walkthrough-hide="endScreen5()"
+    main-caption="After you've selected a powerup and some coins from a stack, you can tap here to take the coins.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen5">
+  </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="resetButton"
+    main-caption="If you change your mind about which stack to take from, you can tap here to reset your choice.
+    
+That's all there is to it. Have fun!
+    
+Tap to start."
+    is-active="walkthroughs.screen6">
+  </walkthrough>
 
 <!-- End walkthrough components -->
 
@@ -167,10 +192,10 @@ Tap to continue."
       </div>
   
       <div class="row">
-        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="next()">Take Coins</div>
-        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="doReset(true)">Reset your stack</div>
+        <div id="takeButton" style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="next()">Take Coins</div>
+        <div id="resetButton" style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="doReset(true)">Reset your stack</div>
         <div id="drawButton" style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="showCards()">Draw Powerups</div>
-        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="toggleWalkthrough()">Walkthrough</div>
+        <!--<div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="toggleWalkthrough()">Walkthrough</div>-->
       </div>
   
       <div class="row">

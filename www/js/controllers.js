@@ -291,6 +291,8 @@ angular.module('starter.controllers', [])
 
     GameState.newGame();
     GameState.setup($scope.gameInit);
+
+    if($scope.gameInit.doWalkthrough) $scope.toggleWalkthrough();
   };
   
   $scope.currentPlayer = 'Player One';
@@ -344,6 +346,11 @@ angular.module('starter.controllers', [])
   $scope.endScreen4 = function() {
     $scope.shownCards = false;
     $scope.powerups = drawCards();
+    $scope.walkthroughs.screen5 = true;
+  };
+
+  $scope.endScreen5 = function() {
+    $scope.walkthroughs.screen6 = true;
   };
 
   $scope.toggleWalkthrough = function() {
