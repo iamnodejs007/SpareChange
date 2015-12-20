@@ -52,11 +52,11 @@ angular.module('starter.controllers', [])
     type: 'trap',
     description: 'The coins your opponent selects will be randomly added across the stacks, ' +
                  'instead of being taken.'
-  }, {
-    name: 'absolutely nothing',
-    action: function() {},
-    type: 'active',
-    description: 'NOOOOOOOOOOOOOPE'
+  //}, {
+  //  name: 'absolutely nothing',
+  //  action: function() {},
+  //  type: 'active',
+  //  description: 'NOOOOOOOOOOOOOPE'
   }, {
     name: 'Take Extra Coin',
     action: takeExtraCoin,
@@ -79,7 +79,7 @@ angular.module('starter.controllers', [])
     type: 'trap',
     description: 'Add a coin to the stack your opponent chooses to take coins from.'
   }, {
-    name: 'freeze stack',
+    name: 'Freeze Stack',
     action: freezeStack,
     type: 'trap',
     description: 'Select a stack. Your opponent will not be able to take coins from that stack next ' +
@@ -171,7 +171,6 @@ angular.module('starter.controllers', [])
 
   $scope.$watch(function() { return GameState.update }, function() {
     $scope.stacks = GameState.stacks;
-    console.log($scope.stacks);
   });
 
   $scope.$watch(function() { return GameState.player }, function() {
@@ -281,7 +280,6 @@ angular.module('starter.controllers', [])
 
   $scope.newFromPause = function() {
     $scope.state = 'createGame';
-    console.log($scope.gameInit);
   };
 
   $scope.newGame = function() {
@@ -355,6 +353,14 @@ angular.module('starter.controllers', [])
 
   $scope.endScreen5 = function() {
     $scope.walkthroughs.screen6 = true;
+  };
+
+  $scope.endScreen6 = function() {
+    $scope.walkthroughs.screen7 = true;
+  };
+
+  $scope.endScreen7 = function() {
+    $scope.walkthroughs.screen8 = true;
   };
 
   $scope.toggleWalkthrough = function() {

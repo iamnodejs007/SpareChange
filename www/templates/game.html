@@ -34,7 +34,7 @@ Tap to continue."
     is_round=true
     focus-element-id="drawButton"
     on-walkthrough-hide="endScreen3()"
-    main-caption="Each player may also play a powerup. First draw three powerups from the deck.
+    main-caption="Each player also plays a powerup. First draw three powerups from the deck.
     
     
 Tap to continue."
@@ -62,7 +62,7 @@ Tap to continue."
     is_round=true
     focus-element-id="takeButton"
     on-walkthrough-hide="endScreen5()"
-    main-caption="After you've selected a powerup and some coins from a stack, you can tap here to take the coins.
+    main-caption="After you've selected a powerup and some coins from a stack, you can tap here to take the coins. This will trigger the powerup your opponent played on their last turn.
     
     
 Tap to continue."
@@ -74,13 +74,33 @@ Tap to continue."
     icon="single_tap"
     is_round=true
     focus-element-id="resetButton"
+    on-walkthrough-hide="endScreen6()"
     main-caption="If you change your mind about which stack to take from, you can tap here to reset your choice.
     
-That's all there is to it. Have fun!
     
-Tap to start."
+Tap to continue."
     is-active="walkthroughs.screen6">
   </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    on-walkthrough-hide="endScreen7()"
+    main-caption="You win if you can leave your opponent with the last coin on the table, or put another way, if you take the second to last coin. But be careful; your opponent may play a powerup that shakes things up right when you think you're about to win.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen7">
+  </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    main-caption="That's all there is to it. Have fun!
+    
+Tap to start."
+    is-active="walkthroughs.screen8">
+  </walkthrough>
+
+
 
 <!-- End walkthrough components -->
 

@@ -42,7 +42,6 @@ angular.module('starter.services', [/* 'btford.socket-io' */])
     GameState.setup = function(options) {
       // Reset game state to defaults
       angular.extend(GameState, defaultGameState());
-      console.log(options);
     
       if(options) GameState.numberOfStacks = options.numberOfStacks;
       
