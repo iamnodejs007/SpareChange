@@ -10,15 +10,24 @@
   src: url("../fonts/milk-mustache-bb.regular.ttf") format("truetype");   
 }
 
+.menu-icon {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  height: 35px;
+  width: 35px;
+}
+
 div.container4 p {
-    margin: 0;
     position: absolute;
     font-family: Lato;
     font-size: 20px;
     top: 50%;
     left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) }
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
 
 .w3-card-4 {
   background-color: white;

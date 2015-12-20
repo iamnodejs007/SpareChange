@@ -259,13 +259,40 @@ angular.module('starter.controllers', [])
     $scope.gamesModal.hide();
   };
 
+  $scope.pauseMenu = function() {
+    $scope.state = 'pauseMenu';
+    if(window.StatusBar) {
+      window.StatusBar.show();
+    }
+  };
+
+  $scope.continueGame = function() {
+    if(window.StatusBar) {
+      window.StatusBar.hide();
+    }
+    $scope.state = 'game';
+  };
+
+  $scope.abandonGame = function() {
+    $scope.state = 'mainMenu';
+  };
+
+  $scope.newFromPause = function() {
+    $scope.state = 'createGame';
+  };
+
   $scope.newGame = function() {
+    if(window.StatusBar) {
+      window.StatusBar.hide();
+    }
     $scope.state = 'game';
     // Because convert-to-number breaks the display
     $scope.gameInit.numberOfStacks = parseInt($scope.gameInit.numberOfStacks, 10);
 
     GameState.newGame();
     GameState.setup($scope.gameInit);
+
+    if($scope.gameInit.doWalkthrough) $scope.toggleWalkthrough();
   };
   
   $scope.currentPlayer = 'Player One';
@@ -287,13 +314,48 @@ angular.module('starter.controllers', [])
   $scope.range = function(i) {
     //i = parseInt(i) || 0;
     if(typeof i !== 'number') {
-     console.log(i, typeof i);
+     //console.log(i, typeof i);
      i = parseInt(i) || 0;
     }
     return new Array(i);
   }
   $scope.test = function() {
     console.log($scope.optionselection);
+  };
+
+  $scope.walkthroughs = {
+  };
+
+  $scope.endScreen1 = function() {
+    $scope.walkthroughs.screen2 = true;
+    GameState.currentStack = 1;
+    GameState.stacks[1].marked = 3;
+  };
+
+  $scope.endScreen2 = function() {
+    $scope.walkthroughs.screen3 = true;
+    GameState.currentStack = null;
+    GameState.stacks[1].marked = 0;
+  };
+
+  $scope.endScreen3 = function() {
+    $scope.walkthroughs.screen4 = true;
+    $scope.shownCards = true;
+  };
+
+  $scope.endScreen4 = function() {
+    $scope.shownCards = false;
+    $scope.powerups = drawCards();
+    $scope.walkthroughs.screen5 = true;
+  };
+
+  $scope.endScreen5 = function() {
+    $scope.walkthroughs.screen6 = true;
+  };
+
+  $scope.toggleWalkthrough = function() {
+    $scope.walkthroughs.screen1 = true;
+    //console.log($scope.walkthroughs.isActive);
   };
 
   $scope.next = function() {
@@ -305,6 +367,18 @@ angular.module('starter.controllers', [])
       $scope.message = "No powerup selected";
       return; 
     }
+    if($scope.waitingForSelection) {
+      $ionicPopup.show({
+        template: 'You still need to select a stack to freeze!',
+        title: 'Select a stack',
+        scope: $scope,
+        buttons: [
+         { text: 'Done' }
+        ]
+      });
+      return;
+    }
+
     
     // sound effect
     take.play();
@@ -318,13 +392,24 @@ angular.module('starter.controllers', [])
     
     if(left <= 1) {
       // TODO: new game menu
-      $scope.newGameChoiceModal.show();
-      GameState.setup($scope.gameInit);
-      $scope.powerup = null;
-      $scope.selectedPowerupName = null;
-      $scope.selectedPowerup = null;
-      $scope.message = '';
-    //  $scope.setupOptions(); 
+      $ionicPopup.show({
+        template: $scope.currentPlayer + ' wins!',
+        title: 'Game Over!',
+        buttons: [
+          { text: 'Done' }
+        ]
+      }).then(function() {
+        $scope.gameInit = {
+          coinsPerStack: [],
+          doWalkthrough: false
+        };
+        $scope.state = 'gameOver';
+        $scope.powerup = null;
+        $scope.selectedPowerupName = null;
+        $scope.selectedPowerup = null;
+        $scope.currentPlayer = 'Player One';
+        $scope.message = '';
+      });
     }
     hideCards();
     

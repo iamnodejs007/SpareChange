@@ -1,5 +1,91 @@
+<!-- Walkthrough components -->
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="stacks"
+    icon-padding-top="-15px"
+    on-walkthrough-hide="endScreen1()"
+    main-caption="Welcome to Spare Change! The rules are easy. Each player takes turns taking coins from one of these three stacks.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen1">
+  </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="stacks"
+    icon-padding-top="-15px"
+    on-walkthrough-hide="endScreen2()"
+    main-caption="Mark coins to take by tapping on a stack. You can only mark coins from one stack at a time.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen2">
+  </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="drawButton"
+    on-walkthrough-hide="endScreen3()"
+    main-caption="Each player may also play a powerup. First draw three powerups from the deck.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen3">
+  </walkthrough>
+
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    focus-element-id="powerupNo1"
+    on-walkthrough-hide="endScreen4()"
+    icon-padding-top="30px"
+    icon-padding-left="-40px"
+    main-caption="Each powerup has a title and a description. Click the information icon to find out what each description does.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen4">
+  </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="takeButton"
+    on-walkthrough-hide="endScreen5()"
+    main-caption="After you've selected a powerup and some coins from a stack, you can tap here to take the coins.
+    
+    
+Tap to continue."
+    is-active="walkthroughs.screen5">
+  </walkthrough>
+
+  <walkthrough
+    walkthrough-type="transparency"
+    icon="single_tap"
+    is_round=true
+    focus-element-id="resetButton"
+    main-caption="If you change your mind about which stack to take from, you can tap here to reset your choice.
+    
+That's all there is to it. Have fun!
+    
+Tap to start."
+    is-active="walkthroughs.screen6">
+  </walkthrough>
+
+<!-- End walkthrough components -->
+
 <ion-view title="Tactics">
-  <ion-content class="board">
+  <ion-content class="board" scroll="false">
     <div ng-show="state === 'createGame'">
       <div class="list-inset" style="background-color:transparent !important;">
         <label><div style="background-image: url('img/number_of_stacks.png'); width:232px; height:16px;"></div></label>
@@ -43,8 +129,48 @@
         </div>
       </div>
     </div>
+
+    <div ng-show="state === 'gameOver'">
+      <div class="row">
+        <div style="height:50px;"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/game_over.png'); width:131px; height:107px;margin-left:auto;margin-right:auto;"></div>
+      </div>
+      <div class="row">
+        <div style="height:50px;"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/new_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="newFromPause()"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/main_menu.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="abandonGame()"></div>
+      </div>
+   </div>
     
-    <div ng-show="stacks && (stacks.length > 0)">
+    <div ng-show="state === 'pauseMenu'">
+      <div class="row">
+        <div style="height:50px;"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/paused.png'); width:184px; height:43px;margin-left:auto;margin-right:auto;"></div>
+      </div>
+      <div class="row">
+        <div style="height:50px;"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/continue_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="continueGame()"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/new_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="newFromPause()"></div>
+      </div>
+      <div class="row">
+        <div style="background-image: url('img/abandon_game.png'); width:250px; height:70px;margin-left:auto;margin-right:auto;" on-tap="abandonGame()"></div>
+      </div>
+   </div>
+    
+    <div ng-show="state === 'game'">
+      <img class="menu-icon" src="img/menu_icon.png" id="menu-icon" on-tap="pauseMenu()"></img>
       <div class="row" style="position:absolute; top: 130px;">
         <div class="col" ng-repeat="stack in stacks" on-tap="takeCoin($index)">
           <img ng-repeat="coin in range(stack.coins) track by $index" ng-src="img/coin.png" ng-class="getCss($parent.$index, $index)" ng-style="getStyle($parent.$index, $index)"></img>
@@ -52,6 +178,9 @@
      
       </div>
       
+      <div class="row" style="position:absolute; top: 65px;height:150px;z-index:-1;" id="stacks">
+      </div>
+
          
       <!-- My attempt at adding player heading --> 
       <div class="row">
@@ -63,9 +192,10 @@
       </div>
   
       <div class="row">
-        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="next()">Take Coins</div>
-        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="doReset(true)">Reset your stack</div>
-        <div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="showCards()">Draw Powerups</div>
+        <div id="takeButton" style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="next()">Take Coins</div>
+        <div id="resetButton" style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" on-tap="doReset(true)">Reset your stack</div>
+        <div id="drawButton" style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="showCards()">Draw Powerups</div>
+        <!--<div style="border: 2px outset #c0c0c0; padding: 2px 6px 3px; background-color: #c0c0c0; border-radius: 10px; font-family: 'milkmustachereg'" ng-hide="shownCards" on-tap="toggleWalkthrough()">Walkthrough</div>-->
       </div>
   
       <div class="row">
@@ -74,9 +204,9 @@
   
       <div class="row" ng-show="shownCards">
         <div class="col" ng-repeat="powerup in powerups">
-          <div ng-class="powerupClass(powerup.name)" on-tap="setPowerup(powerup)">{{ powerup.name }}
-            <div style="position:absolute;bottom:0;padding-left:10px;padding-bottom:10px;" on-tap="togglePowerupDescription(powerup, true); $event.stopPropagation()">
-              <i class="icon ion-information"></i>
+          <div id="{{ 'powerupNo' + $index }}" ng-class="powerupClass(powerup.name)" style="position:relative" on-tap="setPowerup(powerup)">{{ powerup.name }}
+            <div style="position:absolute;bottom:0px;padding-left:12px;height:30px; width:30px;" on-tap="togglePowerupDescription(powerup, true); $event.stopPropagation()">
+              <i class="icon ion-information" style="vertical-align: bottom; margin-left:auto: margin-right: auto"></i>
             </div>
           </div>
         </div>

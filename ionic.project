@@ -1,4 +1,11 @@
 {
   "name": "tactics",
-  "app_id": "bdff4d53"
+  "app_id": "bdff4d53",
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
+  ]
 }
