@@ -126,7 +126,7 @@ angular.module('starter.controllers', [])
     $scope.selectedPowerupName = powerup.name;
 
     $scope.message = '';
-    if(powerup.name === 'freeze stack') {
+    if(powerup.name === 'Freeze Stack') {
       $scope.message = 'Please select which stack to freeze. Tap again to confirm.';
       $scope.waitingForSelection = true;
     } else if(powerup.name === 'take from multiple stacks') {
@@ -506,6 +506,7 @@ angular.module('starter.controllers', [])
   };
   
   function takeCoinsRandomly() {
+    // TODO: If some stacks are empty it will still try to take coins from the empty stacks.
     
     for(var i = 0; i < GameState.stacks[GameState.currentStack].marked ; i++) { 
       GameState.stacks[randFromZeroToX(GameState.stacks.length)].coins--;
@@ -562,7 +563,7 @@ angular.module('starter.controllers', [])
     if($scope.waitingForSelection) {
       // Not actually taking coin but selecting a stack for something
       
-      if($scope.selectedPowerup.name === 'freeze stack') {
+      if($scope.selectedPowerup.name === 'Freeze Stack') {
         if(once) {
           if(selected !== stackNo) {
             selected = stackNo;
